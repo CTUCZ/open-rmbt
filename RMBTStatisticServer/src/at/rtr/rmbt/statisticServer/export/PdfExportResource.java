@@ -9,8 +9,6 @@ import at.rtr.rmbt.statisticServer.opendata.dto.OpenTestDTO;
 import at.rtr.rmbt.statisticServer.opendata.dto.OpenTestDetailsDTO;
 import at.rtr.rmbt.statisticServer.opendata.dto.OpenTestSearchDTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.jknack.handlebars.Context;
 import com.github.jknack.handlebars.Handlebars;
 import com.github.jknack.handlebars.Template;
@@ -49,7 +47,6 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 @Api(value="/export/pdf")
 public class PdfExportResource extends ServerResource {
@@ -70,7 +67,6 @@ public class PdfExportResource extends ServerResource {
     })
     public Representation request(final Representation entity) throws IOException {
         addAllowOrigin();
-
         //load locale, if possible
         String language = settings.getString("RMBT_DEFAULT_LANGUAGE");
         ResourceBundle labels = this.labels;
@@ -283,7 +279,6 @@ public class PdfExportResource extends ServerResource {
             data.put("Lang", labelsMap);
         }
 
-        Logger.getLogger(PdfExportResource.class.getName()).warning("Data map: "+mapToString(data));
         String fullTemplate;
         try {
             Context context = Context
@@ -345,16 +340,6 @@ public class PdfExportResource extends ServerResource {
             return new EmptyRepresentation();
         }
     }
-
-    private static String mapToString(Map<String, ?> map) {
-        try {
-            return new ObjectMapper().writeValueAsString(map);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-            return "FAILED";
-        }
-    }
-
 
     /**
      * Handlebars resolver that
