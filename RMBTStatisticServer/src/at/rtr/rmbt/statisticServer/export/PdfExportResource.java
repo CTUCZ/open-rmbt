@@ -9,6 +9,8 @@ import at.rtr.rmbt.statisticServer.opendata.dto.OpenTestDTO;
 import at.rtr.rmbt.statisticServer.opendata.dto.OpenTestDetailsDTO;
 import at.rtr.rmbt.statisticServer.opendata.dto.OpenTestSearchDTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.jknack.handlebars.Context;
 import com.github.jknack.handlebars.Handlebars;
 import com.github.jknack.handlebars.Template;
@@ -345,9 +347,12 @@ public class PdfExportResource extends ServerResource {
     }
 
     private static String mapToString(Map<String, ?> map) {
-        return map.keySet().stream()
-                .map(key -> key + "=" + map.get(key))
-                .collect(Collectors.joining(", ", "{", "}"));
+        try {
+            return new ObjectMapper().writeValueAsString(map);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return "FAILED";
+        }
     }
 
 
