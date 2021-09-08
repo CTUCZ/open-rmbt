@@ -164,7 +164,7 @@
 
         {{#if loop_uuid}}
         <p>{{ Lang.results_url }}:<br/>
-            <a href="https://www.netztest.at/{{ Lang.lang }}/Opentests?loop_uuid={{loop_uuid}}">https://www.netztest.at/{{ Lang.lang }}/Opentests?loop_uuid={{loop_uuid}}</a>
+            <a href="https://www.nettest.cz/{{ Lang.lang }}/Opentests?loop_uuid={{loop_uuid}}">https://www.nettest.cz/{{ Lang.lang }}/Opentests?loop_uuid={{loop_uuid}}</a>
         </p>
         {{/if }}
     </div>
@@ -237,7 +237,7 @@
                 <strong>{{ Lang.provider_name }}</strong>
             </p>
             <p class="col-xs-8">
-                {{ provider_name_cm }}
+                {{ isp_name }}
             </p>
          </div>
            <div class="row">
@@ -565,14 +565,14 @@
     }
 
 
-    fetch('https://m-cloud.netztest.at/RMBTStatisticServer/opentests/search?loop_uuid=' + loop_uuid)
+    fetch('https://nettest.cz/RMBTStatisticServer/opentests/search?loop_uuid=' + loop_uuid)
             .then(response => {
                 return response.json()
             })
             .then(tests => {
                 return Promise.all(
                         tests.results.map(test => {
-                                    return fetch('https://m-cloud.netztest.at/RMBTStatisticServer/opentests/' + test.open_test_uuid)
+                                    return fetch('https://nettest.cz/RMBTStatisticServer/opentests/' + test.open_test_uuid)
                                             .then(response => {
                                                 return response.json();
                                             })
