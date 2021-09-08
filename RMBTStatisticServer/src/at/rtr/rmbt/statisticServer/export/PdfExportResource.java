@@ -47,6 +47,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 @Api(value="/export/pdf")
 public class PdfExportResource extends ServerResource {
@@ -280,6 +281,7 @@ public class PdfExportResource extends ServerResource {
             data.put("Lang", labelsMap);
         }
 
+        Logger.getLogger(PdfExportResource.class.getName()).warning("Data map: "+mapToString(data));
         String fullTemplate;
         try {
             Context context = Context
@@ -340,6 +342,12 @@ public class PdfExportResource extends ServerResource {
             setStatus(Status.SERVER_ERROR_NOT_IMPLEMENTED);
             return new EmptyRepresentation();
         }
+    }
+
+    private static String mapToString(Map<String, ?> map) {
+        return map.keySet().stream()
+                .map(key -> key + "=" + map.get(key))
+                .collect(Collectors.joining(", ", "{", "}"));
     }
 
 
