@@ -234,27 +234,28 @@
        <div class="detail">
          <div class="row">
             <p class="col-xs-4 text-right">
-                <strong>{{ Lang.location_access }}</strong>
+                <strong>{{ Lang.provider_name }}</strong>
             </p>
             <p class="col-xs-8">
-                {{#if location_type_0}}
-                {{ Lang.location_access_residential }}<br/>
-                {{/if}}
-                {{#if location_type_1}}
-                {{ Lang.location_access_single_family }}<br/>
-                {{/if}}
-                {{#if location_type_2}}
-                {{ Lang.location_access_urban }}<br/>
-                {{/if}}
-                {{#if location_type_3}}
-                {{ Lang.location_access_rural }}<br/>
-                {{/if}}
-                {{#if location_type_other}}
-                {{ Lang.location_access_other }}: {{location_type_other}}<br/>
-                {{/if}}
+                {{ provider_name }}
             </p>
          </div>
-
+           <div class="row">
+               <p class="col-xs-4 text-right">
+                   <strong>{{ Lang.provider_service_name }}</strong>
+               </p>
+               <p class="col-xs-8">
+                   {{ provider_service_name }}
+               </p>
+           </div>
+           <div class="row">
+               <p class="col-xs-4 text-right">
+                   <strong>{{ Lang.provider_contract_number }}</strong>
+               </p>
+               <p class="col-xs-8">
+                   {{ provider_contract_number }}
+               </p>
+           </div>
 
         {{#if type_text}}
          <div class="row">
