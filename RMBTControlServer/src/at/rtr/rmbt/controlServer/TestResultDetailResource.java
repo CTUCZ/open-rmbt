@@ -1,13 +1,13 @@
 /*******************************************************************************
  * Copyright 2013-2016 alladin-IT GmbH
  * Copyright 2013-2016 Rundfunk und Telekom Regulierungs-GmbH (RTR-GmbH)
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -56,7 +56,7 @@ import static java.lang.Math.round;
 
 public class TestResultDetailResource extends ServerResource
 {
-	
+
     private JSONObject addObject(final JSONArray array, final String key) throws JSONException
     {
         final JSONObject newObject = new JSONObject();
@@ -64,25 +64,25 @@ public class TestResultDetailResource extends ServerResource
         array.put(newObject);
         return newObject;
     }
-    
+
     private void addString(final JSONArray array, final String title, final String value) throws JSONException
     {
         if (value != null && !value.isEmpty())
             addObject(array, title).put("value", value);
     }
-    
+
     private void addString(final JSONArray array, final String title, final Field field) throws JSONException
     {
         if (!field.isNull())
             addString(array, title, field.toString());
     }
-    
+
     private void addInt(final JSONArray array, final String title, final Field field) throws JSONException
     {
         if (!field.isNull())
             addObject(array, title).put("value", field.intValue());
     }
-    
+
     private String getKeyTranslation(final String key)
     {
         try
@@ -94,34 +94,34 @@ public class TestResultDetailResource extends ServerResource
             return key;
         }
     }
-    
+
     @Post("json")
     public String request(final String entity)
     {
     	long startTime = System.currentTimeMillis();
         addAllowRestrictedOrigin();
-        
+
         JSONObject request = null;
-        
+
         final ErrorList errorList = new ErrorList();
         final JSONObject answer = new JSONObject();
         String answerString;
-        
+
         final String clientIpRaw = getIP();
         System.out.println(MessageFormat.format(labels.getString("NEW_TESTRESULT_DETAIL"), clientIpRaw));
-        
+
         if (entity != null && !entity.isEmpty())
             // try parse the string to a JSON object
             try
             {
                 request = new JSONObject(entity);
-                
+
                 String lang = request.optString("language");
-                
+
                 // Load Language Files for Client
-                
+
                 final List<String> langs = Arrays.asList(settings.getString("RMBT_SUPPORTED_LANGUAGES").split(",\\s*"));
-                
+
                 if (langs.contains(lang))
                 {
                     errorList.setLanguage(lang);
@@ -129,27 +129,27 @@ public class TestResultDetailResource extends ServerResource
                 }
                 else
                     lang = settings.getString("RMBT_DEFAULT_LANGUAGE");
-                
+
 //                System.out.println(request.toString(4));
-                
+
                 if (conn != null)
                 {
-                    
+
                     final Client client = new Client(conn);
                     final Test test = new Test(conn);
                     TestNdt ndt = new TestNdt(conn);
-                    
+
                     final String testUuid = request.optString("test_uuid");
                     if (testUuid != null && test.getFinishedTestByUuid(UUID.fromString(testUuid)) > 0
                             && client.getClientByUid(test.getField("client_id").intValue()))
                     {
-                        
+
                         if (!ndt.loadByTestId(test.getUid()))
                             ndt = null;
-                        
+
                         final Locale locale = new Locale(lang);
-                        final Format format = new SignificantFormat(2, locale);
-                        
+                        final Format format = new SignificantFormat(3, locale);
+
                         final JSONArray resultList = new JSONArray();
 
                         boolean dualSim = false;
@@ -198,7 +198,7 @@ public class TestResultDetailResource extends ServerResource
                         	addString(resultList, "speed_download",
                         			String.format("%s %s", download, labels.getString("RESULT_DOWNLOAD_UNIT")));
                         }
-                        
+
                         // speed upload im MBit/s (converted from kbit/s) - csv 11 (in kbit/s)
                         final Field uploadField = test.getField("speed_upload");
                         if (!uploadField.isNull()) {
@@ -206,7 +206,7 @@ public class TestResultDetailResource extends ServerResource
                         	addString(resultList, "speed_upload",
                         			String.format("%s %s", upload, labels.getString("RESULT_UPLOAD_UNIT")));
                         }
-                        
+
                         // median ping in ms
                         final Field pingMedianField = test.getField("ping_median");
                         if (!pingMedianField.isNull()) {
@@ -214,7 +214,7 @@ public class TestResultDetailResource extends ServerResource
                         	addString(resultList, "ping_median",
                         			String.format("%s %s", pingMedian, labels.getString("RESULT_PING_UNIT")));
                         }
-                        
+
                         // signal strength RSSI in dBm - csv 13
                         final Field signalStrengthField = test.getField("signal_strength");
                         if (!dualSim && !signalStrengthField.isNull())
@@ -241,17 +241,17 @@ public class TestResultDetailResource extends ServerResource
                                     "signal_rsrq",
                                     String.format(Locale.ENGLISH,"%d %s", lteRsrqField.intValue(),
                                             labels.getString("RESULT_DB_UNIT")));
-                      
+
                         // network, eg. "3G (HSPA+)
                         //TODO fix helper-function
                         final Field networkTypeField = test.getField("network_type");
                         if (!dualSim && !networkTypeField.isNull())
                         	addString(resultList, "network_type",
                         			Helperfunctions.getNetworkTypeName(networkTypeField.intValue()));
-                        
+
                         // geo-location
                         JSONObject locationJson = getGeoLocation(test, settings, conn, labels);
-                        
+
                         if (locationJson != null) {
                         	if (locationJson.has("location")) {
                         		addString(resultList, "location", locationJson.getString("location"));
@@ -285,7 +285,7 @@ public class TestResultDetailResource extends ServerResource
 
                         // country derived from AS registry
                         final Field countryAsnField = test.getField("country_asn");
-                        if (!countryAsnField.isNull()) 
+                        if (!countryAsnField.isNull())
                             addString(resultList, "country_asn", countryAsnField.toString());
 
                         // country derived from geo-IP database
@@ -424,22 +424,22 @@ public class TestResultDetailResource extends ServerResource
 
                         // reverse hostname (from ip) - (private)
                         addString(resultList, "client_public_ip_rdns", test.getField("public_ip_rdns"));
-                        
+
                         // operator - derived from provider_id (only for pre-defined operators)
                         //TODO replace provider-information by more generic information
                         addString(resultList, "provider", test.getField("provider_id_name"));
-                        
+
                         // type of client local ip (private)
                         addString(resultList, "client_local_ip", test.getField("client_ip_local_type"));
-                        
+
                         // nat-translation of client - csv 23
                         addString(resultList, "nat_type", test.getField("nat_type"));
-                        
+
                         // wifi base station id SSID (numberic) eg 01:2c:3d..
                         addString(resultList, "wifi_ssid", test.getField("wifi_ssid"));
                         // wifi base station id - BSSID (text) eg 'my hotspot'
                         addString(resultList, "wifi_bssid", test.getField("wifi_bssid"));
-                        
+
                         // nominal link speed of wifi connection in MBit/s
                         final Field linkSpeedField = test.getField("wifi_link_speed");
                         if (!linkSpeedField.isNull())
@@ -451,11 +451,11 @@ public class TestResultDetailResource extends ServerResource
                         // name of mobile network operator (eg. 'T-Mobile AT')
                         if (!dualSim)
                            addString(resultList, "network_operator_name", test.getField("network_operator_name"));
-                        
+
                         // mobile network name derived from MCC/MNC of network, eg. '232-01'
                         final Field networkOperatorField = test.getField("network_operator");
-                        
-                        
+
+
                         if (!dualSim)
                         {   // mobile provider name, eg. 'Hutchison Drei' (derived from mobile_provider_id)
                         	final Field mobileProviderNameField = test.getField("mobile_provider_name");
@@ -538,7 +538,7 @@ public class TestResultDetailResource extends ServerResource
 
                         }
 
-                        
+
                         final long totalDownload = test.getField("total_bytes_download").longValue();
                         final long totalUpload = test.getField("total_bytes_upload").longValue();
                         final long totalBytes = totalDownload + totalUpload;
@@ -551,7 +551,7 @@ public class TestResultDetailResource extends ServerResource
                                     String.format("%s %s", totalBytesString,
                                             labels.getString("RESULT_TOTAL_BYTES_UNIT")));
                         }
-                        
+
                         // interface volumes - total including control-server and pre-tests (and other tests)
                         final long totalIfDownload = test.getField("test_if_bytes_download").longValue();
                         final long totalIfUpload = test.getField("test_if_bytes_upload").longValue();
@@ -608,82 +608,82 @@ public class TestResultDetailResource extends ServerResource
                         					labels.getString("RESULT_TOTAL_BYTES_UNIT")));
                         }
 
-                        //start time download-test 
+                        //start time download-test
                         final Field time_dl_ns = test.getField("time_dl_ns");
-                        if (!time_dl_ns.isNull()) {                   
+                        if (!time_dl_ns.isNull()) {
                         addString(resultList,"time_dl",
                                     String.format("%s %s", format.format(time_dl_ns.doubleValue() / 1000000000d),  //convert ns to s
                                             labels.getString("RESULT_DURATION_UNIT")));
                         }
-                        
-                        //duration download-test 
+
+                        //duration download-test
                         final Field duration_download_ns = test.getField("nsec_download");
-                        if (!duration_download_ns.isNull()) {                   
+                        if (!duration_download_ns.isNull()) {
                         addString(resultList,"duration_dl",
                                     String.format("%s %s", format.format(duration_download_ns.doubleValue() / 1000000000d),  //convert ns to s
                                             labels.getString("RESULT_DURATION_UNIT")));
                         }
 
-                        //start time upload-test 
+                        //start time upload-test
                         final Field time_ul_ns = test.getField("time_ul_ns");
-                        if (!time_ul_ns.isNull()) {                   
+                        if (!time_ul_ns.isNull()) {
                         addString(resultList,"time_ul",
                                     String.format("%s %s", format.format(time_ul_ns.doubleValue() / 1000000000d),  //convert ns to s
                                             labels.getString("RESULT_DURATION_UNIT")));
                         }
-                        
-                        //duration upload-test 
+
+                        //duration upload-test
                         final Field duration_upload_ns = test.getField("nsec_upload");
-                        if (!duration_upload_ns.isNull()) {                   
+                        if (!duration_upload_ns.isNull()) {
                         addString(resultList,"duration_ul",
                                     String.format("%s %s", format.format(duration_upload_ns.doubleValue() / 1000000000d),  //convert ns to s
                                             labels.getString("RESULT_DURATION_UNIT")));
                         }
-                   
+
                         if (ndt != null)
                         {
                             final String downloadNdt = format.format(ndt.getField("s2cspd").doubleValue());
                             addString(resultList, "speed_download_ndt",
                                     String.format("%s %s", downloadNdt, labels.getString("RESULT_DOWNLOAD_UNIT")));
-                            
+
                             final String uploaddNdt = format.format(ndt.getField("c2sspd").doubleValue());
                             addString(resultList, "speed_upload_ndt",
                                     String.format("%s %s", uploaddNdt, labels.getString("RESULT_UPLOAD_UNIT")));
-                            
+
                             // final String pingNdt =
                             // format.format(ndt.getField("avgrtt").doubleValue());
                             // addString(resultList, "ping_ndt",
                             // String.format("%s %s", pingNdt,
                             // labels.getString("RESULT_PING_UNIT")));
                         }
-                        
+
                         addString(resultList, "server_name", test.getField("server_name"));
                         addString(resultList, "plattform", test.getField("plattform"));
                         addString(resultList, "os_version", test.getField("os_version"));
                         addString(resultList, "model", test.getField("model_fullname"));
                         addString(resultList, "client_name", test.getField("client_name"));
                         addString(resultList, "client_software_version", test.getField("client_software_version"));
-                        
+
                         addString(resultList, "client_version", test.getField("client_version"));
-                                               
+
                         addString(
                                 resultList,
                                 "duration",
                                 String.format("%d %s", test.getField("duration").intValue(),
                                         labels.getString("RESULT_DURATION_UNIT")));
- 
+
                         // number of threads for download-test
                         final Field num_threads = test.getField("num_threads");
-                        if (!num_threads.isNull()) {                   
+                        if (!num_threads.isNull()) {
                         	addInt(resultList,"num_threads",num_threads);
                         }
-                       
+
                         //number of threads for upload-test
                         final Field num_threads_ul = test.getField("num_threads_ul");
-                        if (!num_threads_ul.isNull()) {                   
+                        if (!num_threads_ul.isNull()) {
                         	addInt(resultList,"num_threads_ul",num_threads_ul);
                         }
-                    
+
                         //dz 2013-11-09 removed UUID from details as users might get confused by two
                         //              ids;
                         //addString(resultList, "uuid", String.format("T%s", test.getField("uuid")));
@@ -700,25 +700,25 @@ public class TestResultDetailResource extends ServerResource
                             openUUIDItem.put("value", String.format("P%s", openUUIDField));
                             openUUIDItem.put("open_uuid", String.format("P%s", openUUIDField));
                         }
-          
+
                         //todo: Add "user_server_selection" Flag
-                        
+
                         //number of threads for upload-test
                         final Field tag = test.getField("tag");
-                        if (!tag.isNull()) {                   
+                        if (!tag.isNull()) {
                         	addString(resultList,"tag",tag);
                         }
-                        
+
                         if (ndt != null)
                         {
                             addString(resultList, "ndt_details_main", ndt.getField("main"));
                             addString(resultList, "ndt_details_stat", ndt.getField("stat"));
                             addString(resultList, "ndt_details_diag", ndt.getField("diag"));
                         }
-                        
+
                         if (resultList.length() == 0)
                             errorList.addError("ERROR_DB_GET_TESTRESULT_DETAIL");
-                        
+
                         answer.put("testresultdetail", resultList);
                     }
                     else
@@ -727,7 +727,7 @@ public class TestResultDetailResource extends ServerResource
                 }
                 else
                     errorList.addError("ERROR_DB_CONNECTION");
-                
+
             }
             catch (final JSONException e)
             {
@@ -736,7 +736,7 @@ public class TestResultDetailResource extends ServerResource
             }
         else
             errorList.addErrorString("Expected request is missing.");
-        
+
         try
         {
             answer.putOpt("error", errorList.getList());
@@ -745,15 +745,15 @@ public class TestResultDetailResource extends ServerResource
         {
             System.out.println("Error saving ErrorList: " + e.toString());
         }
-        
+
         answerString = answer.toString();
-        
+
         long elapsedTime = System.currentTimeMillis() - startTime;
         System.out.println(MessageFormat.format(labels.getString("NEW_TESTRESULT_DETAIL_SUCCESS"), clientIpRaw, Long.toString(elapsedTime)));
-        
+
         return answerString;
     }
-    
+
     @Get("json")
     public String retrieve(final String entity)
     {
@@ -761,7 +761,7 @@ public class TestResultDetailResource extends ServerResource
     }
 
     /**
-     * 
+     *
      * @param test
      * @param settings
      * @param conn
@@ -769,11 +769,11 @@ public class TestResultDetailResource extends ServerResource
      * @throws JSONException
      */
     public static JSONObject getGeoLocation(Test test, ResourceBundle settings, Connection conn, ResourceBundle labels) throws JSONException {
-    	JSONObject json = new JSONObject(); 
+    	JSONObject json = new JSONObject();
         // geo-location
         final Field latField = test.getField("geo_lat"); //csv 6
         final Field longField = test.getField("geo_long"); //csv 7
-        final Field accuracyField = test.getField("geo_accuracy"); 
+        final Field accuracyField = test.getField("geo_accuracy");
         final Field providerField = test.getField("geo_provider"); //csv 8
         if (!(latField.isNull() || longField.isNull() || accuracyField.isNull()))
         {
@@ -782,12 +782,12 @@ public class TestResultDetailResource extends ServerResource
             {
                 final StringBuilder geoString = new StringBuilder(Helperfunctions.geoToString(latField.doubleValue(),
                         longField.doubleValue()));
-                
+
                 geoString.append(" (");
                 if (! providerField.isNull())
                 {
                 	String provider = providerField.toString().toUpperCase(Locale.US);
-                	
+
                 	switch(provider) {
                 		case "NETWORK":
                 			provider = labels.getString("key_geo_source_network");
@@ -796,7 +796,7 @@ public class TestResultDetailResource extends ServerResource
                 			provider = labels.getString("key_geo_source_gps");
                 			break;
                 	}
-                	
+
                     geoString.append(provider);
                     geoString.append(", ");
                 }
@@ -812,14 +812,14 @@ public class TestResultDetailResource extends ServerResource
                     json.put("motion", round(dist.getTotalDistance()) + " m");
                 }
             }
-            
+
             // country derived from location
-            final Field countryLocationField = test.getField("country_location"); 
+            final Field countryLocationField = test.getField("country_location");
             if (!countryLocationField.isNull()) {
                 json.put("country_location", countryLocationField.toString());
             }
         }
-        
+
         return json;
     }
 }
