@@ -208,7 +208,7 @@ public abstract class Helperfunctions
         case 97:
             return "CLI";
         case 98:
-            return "BROWSER";
+            return "Prohlížeč";
         case 99:
             return "WLAN";
         case 101:
@@ -226,7 +226,7 @@ public abstract class Helperfunctions
         case 107:
             return "Bluetooth";
         default:
-            return "UNKNOWN";
+            return "Neznámé";
         }
     }
 
