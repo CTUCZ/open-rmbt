@@ -183,12 +183,19 @@ public class PdfExportResource extends ServerResource {
         try {
             String html;
             if (getParameters.size() > 1 && !Strings.isNullOrEmpty(getParameters.getFirstValue("first"))) {
+                Logger.getLogger(PdfExportResource.class.getName()).info("Web cert pdf");
                 //use different template for certified measurement protocol
                 html = Resources.toString(getClass().getClassLoader().getResource("at/rtr/rmbt/res/export_zert.hbs.html"), Charsets.UTF_8);
                 pdfFilename = labels.getString("RESULT_PDF_FILENAME_CERTIFIED");
                 certifiedMeasurement = true;
+            } else if(getParameters.size() > 1 && !Strings.isNullOrEmpty(getParameters.getFirstValue("mobile"))) {
+                Logger.getLogger(PdfExportResource.class.getName()).info("Mobile cert pdf");
+                html = Resources.toString(getClass().getClassLoader().getResource("at/rtr/rmbt/res/export_zert_mobile.hbs.html"), Charsets.UTF_8);
+                pdfFilename = labels.getString("RESULT_PDF_FILENAME_CERTIFIED");
+                certifiedMeasurement = true;
             }
             else {
+                Logger.getLogger(PdfExportResource.class.getName()).info("Basic pdf");
                 html = Resources.toString(getClass().getClassLoader().getResource("at/rtr/rmbt/res/export.hbs.html"), Charsets.UTF_8);
                 pdfFilename = labels.getString("RESULT_PDF_FILENAME");
                 certifiedMeasurement = false;
@@ -249,6 +256,13 @@ public class PdfExportResource extends ServerResource {
             OpenTestDTO result = testIterator.next();
             OpenTestDetailsDTO singleTest = dao.getSingleOpenTestDetails(result.getOpenTestUuid(), 0);
             testIterator.set(singleTest);
+        }
+
+        if(getParameters.size() > 1 && !Strings.isNullOrEmpty(getParameters.getFirstValue("mobile"))) {
+            Map<String, Object> validationResult = validateMobileMeasurements(testResults, dao);
+            data.put("first", "y");
+            data.put("valid", validationResult.size() == 0);
+            data.putAll(validationResult);
         }
 
         //add further parameters, i.e. logos
@@ -340,6 +354,13 @@ public class PdfExportResource extends ServerResource {
             return new EmptyRepresentation();
         }
     }
+
+    private Map<String, Object> validateMobileMeasurements(List<OpenTestDTO> testResults, OpenTestDAO dao) {
+        MobileCertifiedMeasurementValidator validator = new MobileCertifiedMeasurementValidator(testResults, dao);
+        validator.validate();
+        return validator.getValidationResults();
+    }
+
 
     /**
      * Handlebars resolver that
