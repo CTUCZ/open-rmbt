@@ -259,7 +259,7 @@ public class PdfExportResource extends ServerResource {
         }
 
         if(getParameters.size() > 1 && !Strings.isNullOrEmpty(getParameters.getFirstValue("mobile"))) {
-            Map<String, Object> validationResult = validateMobileMeasurements(testResults, dao);
+            Map<String, Object> validationResult = validateMobileMeasurements(testResults);
             data.put("first", "y");
             data.put("valid", validationResult.size() == 0);
             data.putAll(validationResult);
@@ -355,8 +355,8 @@ public class PdfExportResource extends ServerResource {
         }
     }
 
-    private Map<String, Object> validateMobileMeasurements(List<OpenTestDTO> testResults, OpenTestDAO dao) {
-        MobileCertifiedMeasurementValidator validator = new MobileCertifiedMeasurementValidator(testResults, dao);
+    private Map<String, Object> validateMobileMeasurements(List<OpenTestDTO> testResults) {
+        MobileCertifiedMeasurementValidator validator = new MobileCertifiedMeasurementValidator(testResults);
         validator.validate();
         return validator.getValidationResults();
     }

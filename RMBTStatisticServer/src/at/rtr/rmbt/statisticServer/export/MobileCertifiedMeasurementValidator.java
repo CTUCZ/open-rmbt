@@ -21,16 +21,15 @@ public class MobileCertifiedMeasurementValidator {
     private static final Integer MIN_SIGNAL_STRENGTH = 100;
     private static final Integer NOT_ROAMING_TYPE = 5;//0 -> not roaming
 
-    private final List<OpenTestDTO> testResults;
-
     private final List<OpenTestDetailsDTO> testDetails;
 
     private final Map<String, Object> validationResults = new HashMap<>();
 
-    public MobileCertifiedMeasurementValidator(List<OpenTestDTO> testResults, OpenTestDAO dao) {
-        this.testResults = testResults;
+    private final Logger logger = Logger.getLogger(MobileCertifiedMeasurementValidator.class.getName());
+
+    public MobileCertifiedMeasurementValidator(List<OpenTestDTO> testResults) {
         this.testDetails = testResults.stream()
-                .map(t -> dao.getSingleOpenTestDetails(t.getOpenTestUuid(), 0))
+                .map(OpenTestDetailsDTO.class::cast)
                 .collect(Collectors.toList());
     }
 
@@ -39,9 +38,9 @@ public class MobileCertifiedMeasurementValidator {
     }
 
     public void validate() {
-        if(testResults.isEmpty()) {
+        if(testDetails.isEmpty()) {
             validateNumberOfMeasurements();
-            Logger.getLogger(MobileCertifiedMeasurementValidator.class.getName()).info(() -> "Test results empty");
+            logger.info(() -> "Test results empty");
         } else {
             validateDistance();
             validateNumberOfMeasurements();
@@ -49,17 +48,23 @@ public class MobileCertifiedMeasurementValidator {
             validateRoaming();
             validateMccMnc();
             validateSignal();
-            Logger.getLogger(MobileCertifiedMeasurementValidator.class.getName()).info(() -> "Validation complete");
+            logger.info(() -> "Validation complete");
         }
-        Logger.getLogger(MobileCertifiedMeasurementValidator.class.getName()).info(() -> "Validation results: "+ validationResults.toString());
+        logger.info(() -> "Validation results: "+ validationResults.toString());
     }
 
     private void validateDistance() {
-        Logger.getLogger(MobileCertifiedMeasurementValidator.class.getName()).info(() -> "Validating distance");
+        logger.info(() -> "Validating distance");
         OpenTestDetailsDTO firstTest = testDetails.get(0);
         Double startLat = firstTest.getLatitude();
         Double startLong = firstTest.getLongitude();
         //todo zakomponovat přesnost, nějaky limit
+
+
+        if(startLat == null || startLong == null) {
+            validationResults.put("invalidLocation", "Invalid location data");
+            return;
+        }
 
         validationResults.put("validDistanceLocSrc", firstTest.getLocSrc());// gps/network
         List<DistanceResult> distanceResult = new ArrayList<>();
@@ -68,11 +73,14 @@ public class MobileCertifiedMeasurementValidator {
             Double testLat = test.getLatitude();
             Double testLong = test.getLongitude();
 
-            double distance = distFrom(startLat, startLong, testLat, testLong);
-            if(distance > MAX_DISTANCE_METERS) {
-                distanceResult.add(new DistanceResult(i+1, Math.round(distance), test.getLocSrc()));
+            if(testLat != null && testLong != null) {
+                double distance = distFrom(startLat, startLong, testLat, testLong);
+                if (distance > MAX_DISTANCE_METERS) {
+                    distanceResult.add(new DistanceResult(i + 1, Math.round(distance), test.getLocSrc(), test.getLocAccuracy()));
+                }
+            } else {
+                distanceResult.add(new DistanceResult(i + 1, Long.MAX_VALUE, test.getLocSrc(), test.getLocAccuracy()));
             }
-            Logger.getLogger(MobileCertifiedMeasurementValidator.class.getName()).info(() -> "Validating distance: "+distance);
         }
 
         if(!distanceResult.isEmpty()) {
@@ -85,16 +93,16 @@ public class MobileCertifiedMeasurementValidator {
     }
 
     private void validateNumberOfMeasurements() {
-        Logger.getLogger(MobileCertifiedMeasurementValidator.class.getName()).info(() -> "Validating number of tests");
-        validationResults.put("invalidNumOfTests", NUM_OF_TESTS.equals(testResults.size()) ? "" : testResults.size());
+        logger.info(() -> "Validating number of tests");
+        validationResults.put("invalidNumOfTests", NUM_OF_TESTS.equals(testDetails.size()) ? "" : testDetails.size());
     }
 
     private void validateMeasurementsTime() {
-        Logger.getLogger(MobileCertifiedMeasurementValidator.class.getName()).info(() -> "Validating measurements time");
+        logger.info(() -> "Validating measurements time");
 
         DateTimeFormatter timeFormatter = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
-        DateTime firstTesttime = timeFormatter.parseDateTime(testResults.get(0).getTime());
-        DateTime lastTesttime = timeFormatter.parseDateTime(testResults.get(testResults.size() - 1).getTime());
+        DateTime firstTesttime = timeFormatter.parseDateTime(testDetails.get(0).getTime());
+        DateTime lastTesttime = timeFormatter.parseDateTime(testDetails.get(testDetails.size() - 1).getTime());
 
         Minutes minutes = Minutes.minutesBetween(firstTesttime, lastTesttime);
         if(minutes.getMinutes() > 60) {
@@ -103,7 +111,7 @@ public class MobileCertifiedMeasurementValidator {
     }
 
     private void validateRoaming() {
-        Logger.getLogger(MobileCertifiedMeasurementValidator.class.getName()).info(() -> "Validating roaming");
+        logger.info(() -> "Validating roaming");
         AtomicInteger i = new AtomicInteger(1);
         List<HashMap<Object, Object>> roaming = testDetails.stream()
                 .filter(t -> !Objects.equals(t.getRoamingType(), NOT_ROAMING_TYPE))
@@ -120,7 +128,7 @@ public class MobileCertifiedMeasurementValidator {
     }
 
     private void validateMccMnc() {
-        Logger.getLogger(MobileCertifiedMeasurementValidator.class.getName()).info(() -> "Validating mcc/mnc");
+        logger.info(() -> "Validating mcc/mnc");
         AtomicInteger i = new AtomicInteger(1);
         validationResults.put("invalidMccMnc",testDetails.stream()
                 .map(t -> {
@@ -135,12 +143,15 @@ public class MobileCertifiedMeasurementValidator {
     }
 
     private void validateSignal() {
-        Logger.getLogger(MobileCertifiedMeasurementValidator.class.getName()).info(() -> "Validating signal");
+        logger.info(() -> "Validating signal");
         validationResults.put("minSignalStrength", MIN_SIGNAL_STRENGTH);
         AtomicReference<Integer> testId = new AtomicReference<>(1);
-        validationResults.put("invalidSignal", testResults.stream()
+        validationResults.put("invalidSignal", testDetails.stream()
                 .map(t -> {
                     HashMap<Object, Object> map = new HashMap<>();
+                    t.getCellAreaCode();
+                    t.getCellLocationId();
+
                     if(t.getLteRsrp() == null) {
                         map.put("testId", testId.getAndSet(testId.get() + 1));
                         map.put("signalStrength", "nebylo připojeno přes mobilní síť");
@@ -185,11 +196,13 @@ public class MobileCertifiedMeasurementValidator {
         public final Integer testId;
         public final Long distance;
         public final String locSrc;
+        public final Double locAccuracy;
 
-        public DistanceResult(Integer testId, Long distance, String locSrc) {
+        public DistanceResult(Integer testId, Long distance, String locSrc, Double locAccuracy) {
             this.testId = testId;
             this.distance = distance;
             this.locSrc = locSrc;
+            this.locAccuracy = locAccuracy;
         }
 
         public Map<String, String> getMap() {
@@ -197,6 +210,7 @@ public class MobileCertifiedMeasurementValidator {
             map.put("testId", testId.toString());
             map.put("distance", distance.toString());
             map.put("locSrc", locSrc);
+            map.put("locAccuracy", locAccuracy.toString());
             return map;
         }
     }

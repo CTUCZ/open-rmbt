@@ -180,6 +180,10 @@
                 <p>Certifikované měření proběhlo v pořádku</p>
             {{else}}
                 <h3>V certifikovaném měření byly detekovány chyby</h3>
+                {{#if invalidLocation}}
+                    <h4>Chyba v datech lokace</h4>
+                    <p>Pravděpodobně chybí jednomu nebo více testům data o lokaci.</p>
+                {{/if}}
                 {{#if invalidDistance }}
                     <h4>Vzdálenost od prvního testu</h4>
                     <p>Maximální povolená uražená vzdálenost mezi testy: {{ maxValidDistance }} metrů</p>
@@ -423,6 +427,49 @@
 
 
 
+        </div>
+        <div class="single-test">
+            <h3>IP</h3>
+            <p>IP public: {{ip_public}}</p>
+            <p>IP local: {{ip_local}}</p>
+            <p>Local IP type: {{ip_local_type}}</p>
+            <p>NAT type: {{connection}}</p>
+
+            <h3>Location</h3>
+            <p>Latitude: {{lat}}</p>
+            <p>Longitude: {{long}}</p>
+            <p>Geo provider: {{loc_src}}</p>
+            <p>Geo accuracy: {{loc_accuracy}}</p>
+            <p>Distance during test: {{distance}} meters</p>
+
+            <h3>Signal</h3>
+            <p>LTE rsrp: {{lte_rsrp}}</p>
+            <p>LTE rsrq: {{lte_rsrq}}</p>
+            <p>Cell area code: {{cell_area_code}}</p>
+
+            <h3>Network</h3>
+            <p>Network operator: {{network_mcc_mnc}}</p>
+            <p>Network operator name: {{network_name}}</p>
+            <p>Sim operator: {{sim_mcc_mnc}}</p>
+            <p>Sim operator name: {{sim_operator_name}}</p>
+            <p>Network group type: {{network_type}}</p>
+            <p>Network group name: {{cat_technology}}</p>
+
+            <h3>Mobil</h3>
+            <p>Platform: {{platform}}</p>
+            <p>OS version: {{os_version}}</p>
+            <p>Model: {{model}}</p>
+            <p>Dual sim: {{dual_sim}}</p>
+            <p>Dual sim detection method: {{dual_sim_detection_method}}</p>
+
+            <h3>Cell location</h3>
+            {{#each cell_locations}}
+                <ul>
+                    <li>LocationId: {{location_id}}</li>
+                    <li>Area code: {{area_code}}</li>
+                    <li>Primary scrambling code: {{primary_scrambling_code}}</li>
+                </ul>
+            {{/each}}
         </div>
         {{/each}}
 
