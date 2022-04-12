@@ -128,7 +128,7 @@
         <h2>{{ Lang.table_of_contents }}</h2>
         <ul>
             <li><a href="#test-list">1. {{ Lang.conducted_measurements }}</a></li>
-            <li><a href="#user-details">2. {{ Lang.user_provided_data }}</a></li>
+            <li><a href="#validation">2. Validace</a></li>
             <li><a href="#test-details">3. {{ Lang.single_measurement_results }}</a></li>
             <ul>
                 {{#each tests}}
@@ -436,6 +436,7 @@
             <p>NAT type: {{connection}}</p>
 
             <h3>Location</h3>
+            <p>GPS: {{lat}} {{long}}</p>
             <p>Latitude: {{lat}}</p>
             <p>Longitude: {{long}}</p>
             <p>Geo provider: {{loc_src}}</p>
@@ -468,6 +469,7 @@
                     <li>LocationId: {{location_id}}</li>
                     <li>Area code: {{area_code}}</li>
                     <li>Primary scrambling code: {{primary_scrambling_code}}</li>
+                    <li>Time: {{time}}</li>
                 </ul>
             {{/each}}
         </div>

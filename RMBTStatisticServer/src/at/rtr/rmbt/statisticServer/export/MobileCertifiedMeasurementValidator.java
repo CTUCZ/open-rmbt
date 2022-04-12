@@ -149,8 +149,6 @@ public class MobileCertifiedMeasurementValidator {
         validationResults.put("invalidSignal", testDetails.stream()
                 .map(t -> {
                     HashMap<Object, Object> map = new HashMap<>();
-                    t.getCellAreaCode();
-                    t.getCellLocationId();
 
                     if(t.getLteRsrp() == null) {
                         map.put("testId", testId.getAndSet(testId.get() + 1));
