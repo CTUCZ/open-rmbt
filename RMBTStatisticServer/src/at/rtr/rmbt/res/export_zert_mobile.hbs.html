@@ -176,6 +176,14 @@
     <div class="validation" id="validation">
         <h2>Validace</h2>
         <div class="detail">
+            Loop UUID: {{removeFirst loop_uuid}}
+            <ul>
+                {{#each tests}}
+                    <li>Test {{add @index 1}} UUID: {{removeFirst open_test_uuid}}</li>
+                {{/each}}
+            </ul>
+        </div>
+        <div class="detail">
             {{#if valid }}
                 <p>Certifikované měření proběhlo v pořádku</p>
             {{else}}

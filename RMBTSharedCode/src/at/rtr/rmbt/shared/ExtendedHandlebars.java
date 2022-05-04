@@ -248,6 +248,9 @@ public class ExtendedHandlebars extends Handlebars {
                 return new Handlebars.SafeString(sText);
             }
         });
+
+        // Helper {{removeFirst text}} Removes first character from text
+        this.registerHelper("removeFirst", (Helper<String>) (text, options) -> text.substring(1));
     }
 
 }
