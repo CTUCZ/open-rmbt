@@ -29,6 +29,7 @@ public class MobileCertifiedMeasurementValidator {
 
     public MobileCertifiedMeasurementValidator(List<OpenTestDTO> testResults) {
         this.testDetails = testResults.stream()
+                .filter(t -> "FINISHED".equals(t.getStatus()))
                 .map(OpenTestDetailsDTO.class::cast)
                 .collect(Collectors.toList());
     }

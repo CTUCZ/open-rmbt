@@ -132,7 +132,7 @@
             <li><a href="#test-details">3. {{ Lang.single_measurement_results }}</a></li>
             <ul>
                 {{#each tests}}
-                    <li>3.<a href="#{{open_test_uuid}}">{{add @index 1}}. {{time}}</a></li>
+                    <li>3.<a href="#{{open_test_uuid}}">{{add @index 1}}. {{toLocalTime time}}</a></li>
                 {{/each}}
             </ul>
         </ul>
@@ -145,8 +145,8 @@
             <thead>
             <tr>
                 <th>#</th>
-                <th>{{ Lang.time_utc }}</th>
-                <th>{{ Lang.open_test_uuid }}</th>
+                <th>{{ Lang.time }}</th>
+                <th>Status</th>
                 <th class="text-right">{{ Lang.download }}<br/>({{ Lang.mbps }})</th>
                 <th class="text-right">{{ Lang.upload }}<br/>({{ Lang.mbps }})</th>
                 <th class="text-right">{{ Lang.ping }}<br/>({{ Lang.ms }})</th>
@@ -156,8 +156,8 @@
             {{#each tests}}
                 <tr>
                     <th scope="row">{{add @index 1}}</th>
-                    <td>{{time}}</td>
-                    <td>{{open_test_uuid}}</td>
+                    <td>{{toLocalTime time}}</td>
+                    <td>{{status}}</td>
                     <td class="text-right">{{toMbit download_kbit}}</td>
                     <td class="text-right">{{toMbit upload_kbit}}</td>
                     <td class="text-right">{{twoSignificantDigits ping_ms}}</td>
@@ -257,6 +257,10 @@
                     <col class="col-xs-9"/>
                 </colgroup>
                 <tr>
+                    <td>Status</td>
+                    <td>{{status}}</td>
+                </tr>
+                <tr>
                     <td>{{ Lang.download }}</td>
                     <td>{{toMbit download_kbit}} {{ Lang.mbps }}</td>
                 </tr>
@@ -270,7 +274,11 @@
                 </tr>
                 <tr>
                     <td>{{ Lang.time_utc }}</td>
-                    <td>{{time}}</td>
+                    <td>{{toLocalFormat time}}</td>
+                </tr>
+                <tr>
+                    <td>{{ Lang.time_device }}</td>
+                    <td>{{toLocalTime time}}</td>
                 </tr>
                 <tr>
                     <td>{{ Lang.open_test_uuid }}</td>
@@ -431,7 +439,45 @@
                 </tr>
             </table>
 
-
+        <div class="single-test">
+            <h3>Síla signálu (detail)</h3>
+            <table class="table table-striped table-condensed">
+<!--                <colgroup>-->
+<!--                    <col class="col-xs-3"/>-->
+<!--                    <col class="col-xs-9"/>-->
+<!--                </colgroup>-->
+                <thead>
+                    <tr style="font-weight: bold; font-size: smaller">
+                        <td>Čas</td>
+                        <td>LocationId</td>
+                        <td>Area Code</td>
+                        <td>Scrambling Code</td>
+                        <td>Channel Number</td>
+                        <td>LTE RSRP</td>
+                        <td>LTE RSRQ</td>
+                        <td>Timing Advance</td>
+                        <td>Network Type</td>
+                        <td>Technology</td>
+                    </tr>
+                </thead>
+                <tbody>
+                {{#each signal_list}}
+                    <tr>
+                        <td>{{time}}</td>
+                        <td>{{location_id}}</td>
+                        <td>{{area_code}}</td>
+                        <td>{{primary_scrambling_code}}</td>
+                        <td>{{channel_number}}</td>
+                        <td>{{lte_rsrp}}</td>
+                        <td>{{lte_rsrq}}</td>
+                        <td>{{timing_advance}}</td>
+                        <td>{{network_type}}</td>
+                        <td>{{cat_technology}}</td>
+                    </tr>
+                {{/each}}
+                </tbody>
+            </table>
+        </div>
 
 
 

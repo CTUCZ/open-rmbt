@@ -3,11 +3,16 @@ package at.rtr.rmbt.shared;
 import com.github.jknack.handlebars.Handlebars;
 import com.github.jknack.handlebars.Helper;
 import com.github.jknack.handlebars.Options;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -185,7 +190,7 @@ public class ExtendedHandlebars extends Handlebars {
             @Override
             public Object apply(Object number, Options block) throws IOException {
                 if (number == null) {
-                    return null;
+                    return 0;
                 }
                 NumberFormat nf = new SignificantFormat(2);
                 String f = nf.format(Double.parseDouble(number.toString()) / 1000d);
@@ -197,7 +202,7 @@ public class ExtendedHandlebars extends Handlebars {
             @Override
             public Object apply(Object number, Options block) throws IOException {
                 if (number == null) {
-                    return null;
+                    return 0;
                 }
                 NumberFormat nf = new SignificantFormat(2);
                 String f = nf.format(Double.parseDouble(number.toString()) / 1000d / 1000d);
@@ -250,7 +255,32 @@ public class ExtendedHandlebars extends Handlebars {
         });
 
         // Helper {{removeFirst text}} Removes first character from text
-        this.registerHelper("removeFirst", (Helper<String>) (text, options) -> text.substring(1));
+        this.registerHelper("removeFirst", (Helper<String>) (text, options) -> {
+            if(text != null)
+                return text.substring(1);
+            else
+                return "";
+        });
+
+        this.registerHelper("toLocalFormat", (Helper<String>) (text, options) -> {
+            if(text != null) {
+                DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss").withZoneUTC();
+                return DateTime.parse(text, formatter).toString("dd.MM.yyyy HH:mm:ss");
+            } else {
+                return "";
+            }
+        });
+
+        this.registerHelper("toLocalTime", (Helper<String>) (text, options) -> {
+            if(text != null) {
+                DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss").withZoneUTC();
+                DateTime time = DateTime.parse(text, formatter);
+                DateTime timeWithZone = time.withZone(DateTimeZone.forID("Europe/Prague"));
+                return timeWithZone.toString("dd.MM.yyyy HH:mm:ss");
+            } else {
+                return "";
+            }
+        });
     }
 
 }

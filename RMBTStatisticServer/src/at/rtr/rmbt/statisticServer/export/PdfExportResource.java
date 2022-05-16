@@ -8,6 +8,7 @@ import at.rtr.rmbt.statisticServer.opendata.dao.OpenTestDAO;
 import at.rtr.rmbt.statisticServer.opendata.dto.OpenTestDTO;
 import at.rtr.rmbt.statisticServer.opendata.dto.OpenTestDetailsDTO;
 import at.rtr.rmbt.statisticServer.opendata.dto.OpenTestSearchDTO;
+import at.rtr.rmbt.statisticServer.opendata.dto.SignalDTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.jknack.handlebars.Context;
 import com.github.jknack.handlebars.Handlebars;
@@ -52,6 +53,7 @@ import java.util.logging.Logger;
 public class PdfExportResource extends ServerResource {
     public static final int MAX_RESULTS = 1000; //max results for pdf
 
+    private final Logger logger = Logger.getLogger(PdfExportResource.class.getName());
 
     @Post
     @Get
@@ -221,7 +223,7 @@ public class PdfExportResource extends ServerResource {
         }
 
         OpenTestDAO dao = new OpenTestDAO(conn, settings, capabilities);
-        OpenTestSearchDTO searchResult = dao.getOpenTestSearchResults(qp, 0, MAX_RESULTS, new HashSet<String>());
+        OpenTestSearchDTO searchResult = dao.getOpenTestSearchResults(qp, 0, MAX_RESULTS, new HashSet<String>(), false);
 
         Map<String, Object> data = new HashMap<>();
 
@@ -254,7 +256,9 @@ public class PdfExportResource extends ServerResource {
         ListIterator<OpenTestDTO> testIterator = testResults.listIterator();
         while (testIterator.hasNext()) {
             OpenTestDTO result = testIterator.next();
-            OpenTestDetailsDTO singleTest = dao.getSingleOpenTestDetails(result.getOpenTestUuid(), 0);
+            OpenTestDetailsDTO singleTest = dao.getSingleOpenTestDetails(result.getOpenTestUuid(), 0, false);
+            List<SignalDTO> signalData = dao.getSignalData(result.getOpenTestUuid());
+            singleTest.setSignalList(signalData);
             testIterator.set(singleTest);
         }
 
