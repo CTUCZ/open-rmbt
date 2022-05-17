@@ -132,6 +132,7 @@ public class ResultResource extends ServerResource
                             if (rsTokenUuid.next()) {
                                 openTestUuid = (java.util.UUID) rsTokenUuid.getObject("open_test_uuid");
                                 testUuid = (java.util.UUID) rsTokenUuid.getObject("uuid");
+                                markTestCertMode(request, testUuid);
                             }
                             else {
                                 Logger.getLogger(ResultResource.class.getName()).info("UUID not found with STARTED test : " + tokenUuid.toString());
@@ -883,5 +884,21 @@ public class ResultResource extends ServerResource
     {
         return request(entity);
     }
-    
+
+
+    private void markTestCertMode(final JSONObject request, final UUID testUuid) throws SQLException {
+        Logger logger = Logger.getLogger(ResultResource.class.getName());
+        if(request.optBoolean("user_cert_mode")) {
+            try (PreparedStatement ps = conn.prepareStatement("UPDATE public.test_loopmode SET cert_mode=true WHERE test_uuid = ?")) {
+                ps.setObject(1, testUuid);
+                int rowsUpdated = ps.executeUpdate();
+                logger.info("CertMode update for test "+testUuid+" rows updated: "+rowsUpdated);
+                if(rowsUpdated != 1) {
+                    logger.warning("Certmode update for test "+testUuid+" was not updated as cert mode.");
+                }
+            }
+        } else {
+            logger.info("CertMode update for test "+testUuid+" is not marked as cert mode");
+        }
+    }
 }

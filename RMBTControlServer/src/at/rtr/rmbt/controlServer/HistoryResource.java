@@ -175,7 +175,7 @@ public class HistoryResource extends ServerResource
                                             .format(
 
                                             		"SELECT DISTINCT"
-                                                    + " t.uuid, time, timezone, speed_upload, speed_download, ping_median, lte_rsrp, signal_strength, dual_sim, sim_count, network_type, nt.group_name network_type_group_name, l.loop_uuid loop_uuid,"
+                                                    + " t.uuid, time, timezone, speed_upload, speed_download, ping_median, lte_rsrp, signal_strength, dual_sim, sim_count, network_type, nt.group_name network_type_group_name, l.loop_uuid loop_uuid, l.cert_mode cert_mode,"
                                                     + " COALESCE(adm.fullname, t.model) model"
                                                     + " FROM test t"
                                                     + " LEFT JOIN device_map adm ON adm.codename=t.model"
@@ -191,7 +191,7 @@ public class HistoryResource extends ServerResource
                                         .prepareStatement(String
                                                 .format(
                                                 		"SELECT DISTINCT"
-                                                        + " t.uuid, time, timezone, speed_upload, speed_download, ping_median, lte_rsrp, signal_strength, dual_sim, sim_count, network_type, nt.group_name network_type_group_name, l.loop_uuid loop_uuid,"
+                                                        + " t.uuid, time, timezone, speed_upload, speed_download, ping_median, lte_rsrp, signal_strength, dual_sim, sim_count, network_type, nt.group_name network_type_group_name, l.loop_uuid loop_uuid, l.cert_mode cert_mode,"
                                                         + " COALESCE(adm.fullname, t.model) model"
                                                         + " FROM test t"
                                                         + " LEFT JOIN device_map adm ON adm.codename=t.model"
@@ -224,6 +224,7 @@ public class HistoryResource extends ServerResource
                                 final JSONObject jsonItem = new JSONObject();
                                 
                                 jsonItem.put("test_uuid", rs.getString("uuid"));
+                                jsonItem.put("cert_mode", rs.getBoolean("cert_mode"));
                                 
                                 final Date date = rs.getTimestamp("time");
                                 final long time = date.getTime();

@@ -4774,7 +4774,8 @@ CREATE TABLE public.test_loopmode (
     max_delay integer,
     max_tests integer,
     test_counter integer,
-    loop_uuid uuid
+    loop_uuid uuid,
+    cert_mode bool DEFAULT false
 );
 
 
