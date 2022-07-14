@@ -10,11 +10,12 @@ import org.joda.time.format.DateTimeFormatter;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.NumberFormat;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * Handlebars including some helpers
@@ -281,6 +282,16 @@ public class ExtendedHandlebars extends Handlebars {
                 return "";
             }
         });
-    }
 
+        this.registerHelper("boolToText", (Helper<String>) (text, options) -> Optional.ofNullable(text)
+                .map(s -> s.equalsIgnoreCase("t") ? "Ano" : "Ne")
+                .orElse("Ne"));
+
+        this.registerHelper("roundUp", (number, options) -> Optional.ofNullable(number)
+                .map(Object::toString)
+                .map(BigDecimal::new)
+                .map(n -> n.setScale(0, RoundingMode.UP))
+                .map(BigDecimal::toPlainString)
+                .orElse(""));
+    }
 }

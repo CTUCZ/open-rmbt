@@ -9,6 +9,7 @@ import at.rtr.rmbt.statisticServer.opendata.dto.OpenTestDTO;
 import at.rtr.rmbt.statisticServer.opendata.dto.OpenTestDetailsDTO;
 import at.rtr.rmbt.statisticServer.opendata.dto.OpenTestSearchDTO;
 import at.rtr.rmbt.statisticServer.opendata.dto.SignalDTO;
+import at.rtr.rmbt.statisticServer.opendata.dto.SignalValidationRuleDTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.jknack.handlebars.Context;
 import com.github.jknack.handlebars.Handlebars;
@@ -263,7 +264,7 @@ public class PdfExportResource extends ServerResource {
         }
 
         if(getParameters.size() > 1 && !Strings.isNullOrEmpty(getParameters.getFirstValue("mobile"))) {
-            Map<String, Object> validationResult = validateMobileMeasurements(testResults);
+            Map<String, Object> validationResult = validateMobileMeasurements(testResults, dao.getSignalValidationRules());
             data.put("first", "y");
             data.put("valid", validationResult.size() == 0);
             data.putAll(validationResult);
@@ -310,7 +311,7 @@ public class PdfExportResource extends ServerResource {
             //create temp file
             Path htmlFile = Files.createTempFile("nt" + uuid, ".pdf.html");
             Files.write(htmlFile, fullTemplate.getBytes("utf-8"));
-            Logger.getLogger(PdfExportResource.class.getName()).fine("Generating PDF from: " + htmlFile);
+            Logger.getLogger(PdfExportResource.class.getName()).info("Generating PDF from: " + htmlFile);
 
             Path pdfTarget = new File(tempPath + uuid + ".pdf").toPath();
 
@@ -359,8 +360,8 @@ public class PdfExportResource extends ServerResource {
         }
     }
 
-    private Map<String, Object> validateMobileMeasurements(List<OpenTestDTO> testResults) {
-        MobileCertifiedMeasurementValidator validator = new MobileCertifiedMeasurementValidator(testResults);
+    private Map<String, Object> validateMobileMeasurements(List<OpenTestDTO> testResults, List<SignalValidationRuleDTO> rules) {
+        MobileCertifiedMeasurementValidator validator = new MobileCertifiedMeasurementValidator(testResults, rules);
         validator.validate();
         return validator.getValidationResults();
     }
@@ -469,11 +470,12 @@ public class PdfExportResource extends ServerResource {
             String weasyPath = path;
             ProcessBuilder weasyProcessBuilder = new ProcessBuilder(weasyPath,
                     htmlSource.toAbsolutePath().toString(),
-                    pdfTarget.toAbsolutePath().toString());
+                    pdfTarget.toAbsolutePath().toString())
+                    .inheritIO();
             Process weasyProcess = weasyProcessBuilder.start();
             try {
                 weasyProcess.waitFor();
-                Logger.getLogger(PdfExportResource.class.getName()).fine("PDF generation with weasyprint finished");
+                Logger.getLogger(PdfExportResource.class.getName()).info("PDF generation with weasyprint finished with exitCode: "+weasyProcess.exitValue());
             } catch (InterruptedException e) {
                 throw new IOException(e);
             }

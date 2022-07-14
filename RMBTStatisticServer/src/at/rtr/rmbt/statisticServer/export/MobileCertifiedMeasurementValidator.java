@@ -1,8 +1,9 @@
 package at.rtr.rmbt.statisticServer.export;
 
-import at.rtr.rmbt.statisticServer.opendata.dao.OpenTestDAO;
 import at.rtr.rmbt.statisticServer.opendata.dto.OpenTestDTO;
 import at.rtr.rmbt.statisticServer.opendata.dto.OpenTestDetailsDTO;
+import at.rtr.rmbt.statisticServer.opendata.dto.SignalDTO;
+import at.rtr.rmbt.statisticServer.opendata.dto.SignalValidationRuleDTO;
 import org.joda.time.DateTime;
 import org.joda.time.Minutes;
 import org.joda.time.format.DateTimeFormat;
@@ -18,20 +19,24 @@ public class MobileCertifiedMeasurementValidator {
 
     private static final Integer NUM_OF_TESTS = 6;
     private static final Integer MAX_DISTANCE_METERS = 1;
-    private static final Integer MIN_SIGNAL_STRENGTH = 100;
     private static final Integer NOT_ROAMING_TYPE = 5;//0 -> not roaming
 
+    private static final List<String> NO_VALIDATION_SIGNAL_TECHNOLOGIES = Arrays.asList("3G", "WIFI");
+
     private final List<OpenTestDetailsDTO> testDetails;
+
+    private final Map<Integer, SignalValidationRuleDTO> signalRules;
 
     private final Map<String, Object> validationResults = new HashMap<>();
 
     private final Logger logger = Logger.getLogger(MobileCertifiedMeasurementValidator.class.getName());
 
-    public MobileCertifiedMeasurementValidator(List<OpenTestDTO> testResults) {
+    public MobileCertifiedMeasurementValidator(List<OpenTestDTO> testResults, List<SignalValidationRuleDTO> signalRules) {
         this.testDetails = testResults.stream()
                 .filter(t -> "FINISHED".equals(t.getStatus()))
                 .map(OpenTestDetailsDTO.class::cast)
                 .collect(Collectors.toList());
+        this.signalRules = signalRules.stream().collect(Collectors.toMap(SignalValidationRuleDTO::getChannelNumber, signal -> signal));
     }
 
     public Map<String, Object> getValidationResults() {
@@ -43,11 +48,11 @@ public class MobileCertifiedMeasurementValidator {
             validateNumberOfMeasurements();
             logger.info(() -> "Test results empty");
         } else {
-            validateDistance();
+//            validateDistance();
             validateNumberOfMeasurements();
-            validateMeasurementsTime();
-            validateRoaming();
-            validateMccMnc();
+//            validateMeasurementsTime();
+//            validateRoaming();
+//            validateMccMnc();
             validateSignal();
             logger.info(() -> "Validation complete");
         }
@@ -145,26 +150,55 @@ public class MobileCertifiedMeasurementValidator {
 
     private void validateSignal() {
         logger.info(() -> "Validating signal");
-        validationResults.put("minSignalStrength", MIN_SIGNAL_STRENGTH);
+//        logger.info("Signal rules: "+signalRules.entrySet().stream().map(rule -> String.format("ChannelNumber: %s -> limit: %s",rule.getKey(), rule.getValue().getRsrpLimit())).collect(Collectors.joining(", ")));
         AtomicReference<Integer> testId = new AtomicReference<>(1);
-        validationResults.put("invalidSignal", testDetails.stream()
+        List<HashMap<String, Object>> invalidList = testDetails.stream()
                 .map(t -> {
-                    HashMap<Object, Object> map = new HashMap<>();
+                    Integer currentTestId = testId.getAndSet(testId.get() + 1);
+                    List<SignalResult> invalidSignals = validateSignalList(t.getSignalList());
+                    List<String> invalidSignalsMessages = invalidSignals.stream()
+                            .map(SignalResult::getMessage)
+                            .distinct()
+                            .collect(Collectors.toList());
 
-                    if(t.getLteRsrp() == null) {
-                        map.put("testId", testId.getAndSet(testId.get() + 1));
-                        map.put("signalStrength", "nebylo připojeno přes mobilní síť");
+                    HashMap<String, Object> map = new HashMap<>();
+                    if (!invalidSignals.isEmpty()) {
+                        map.put("testId", currentTestId);
+                        map.put("messages", invalidSignalsMessages);
                     }
-                    else if(Math.abs(t.getLteRsrp()) < MIN_SIGNAL_STRENGTH) {
-                        map.put("testId", testId.getAndSet(testId.get() + 1));
-                        map.put("signalStrength", t.getLteRsrp());
-                    }
-
-//                    map.put("invalidSignalClassification", t.getSignalClassification());
                     return map;
                 })
-                .collect(Collectors.toList())
-        );
+                .filter(map -> !map.isEmpty())
+                .collect(Collectors.toList());
+        if(!invalidList.isEmpty()) {
+            validationResults.put("invalidSignal", invalidList);
+        }
+    }
+
+    private List<SignalResult> validateSignalList(List<SignalDTO> signalList) {
+        return signalList.stream()
+                .filter(signal -> !NO_VALIDATION_SIGNAL_TECHNOLOGIES.contains(signal.getCatTechnology()))
+                .map(this::validateSignalLimit)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+    }
+
+    private SignalResult validateSignalLimit(SignalDTO signal) {
+        Integer channelNumber = signal.getChannelNumber();
+        SignalValidationRuleDTO rule = signalRules.get(channelNumber);
+        if(rule == null) {
+            return new SignalResult(signal, String.format("Nebylo možné ověřit limitní hodnotu síly signálu (Channel number %s)", channelNumber));
+        }
+
+        if(signal.getLteRsrp() == null) {
+            return new SignalResult(signal, "Nebylo možné získat všechny hodnoty síly signálu");
+        }
+
+        if(signal.getLteRsrp() < rule.getRsrpLimit()) {
+            return new SignalResult(signal, String.format("Byla detekována nedostatečná síla signálu, která mohla ovlivnit výsledek měření (Channel number %s)", channelNumber));
+        }
+
+        return null;
     }
 
     private static double distFrom(double lat1, double lng1, double lat2, double lng2) {
@@ -191,6 +225,20 @@ public class MobileCertifiedMeasurementValidator {
         }
     }
 
+    public static class SignalResult {
+        public final SignalDTO signal;
+        public final String message;
+
+        public SignalResult(SignalDTO signal, String message) {
+            this.signal = signal;
+            this.message = message;
+        }
+
+        public String getMessage() {
+            return message;
+        }
+    }
+
     public static class DistanceResult {
         public final Integer testId;
         public final Long distance;
@@ -206,11 +254,17 @@ public class MobileCertifiedMeasurementValidator {
 
         public Map<String, String> getMap() {
             Map<String, String> map = new HashMap<>();
-            map.put("testId", testId.toString());
-            map.put("distance", distance.toString());
+            map.put("testId", getSafeNumberString(testId));
+            map.put("distance", getSafeNumberString(distance));
             map.put("locSrc", locSrc);
-            map.put("locAccuracy", locAccuracy.toString());
+            map.put("locAccuracy", getSafeNumberString(locAccuracy));
             return map;
+        }
+
+        private static String getSafeNumberString(Number number) {
+            return Optional.ofNullable(number)
+                    .map(Number::toString)
+                    .orElse("");
         }
     }
 }
