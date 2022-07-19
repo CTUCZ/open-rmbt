@@ -9,7 +9,13 @@ import org.joda.time.Minutes;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.logging.Logger;
@@ -20,6 +26,8 @@ public class MobileCertifiedMeasurementValidator {
     private static final Integer NUM_OF_TESTS = 6;
     private static final Integer MAX_DISTANCE_METERS = 1;
     private static final Integer NOT_ROAMING_TYPE = 5;//0 -> not roaming
+    private static final Integer MAX_TEST_TIME = 60; // minutes
+    private static final String VALID_MCC = "230"; // cz
 
     private static final List<String> NO_VALIDATION_SIGNAL_TECHNOLOGIES = Arrays.asList("3G", "WIFI");
 
@@ -48,12 +56,16 @@ public class MobileCertifiedMeasurementValidator {
             validateNumberOfMeasurements();
             logger.info(() -> "Test results empty");
         } else {
-//            validateDistance();
             validateNumberOfMeasurements();
-//            validateMeasurementsTime();
-//            validateRoaming();
-//            validateMccMnc();
+            validateMeasurementsTime();
+            validateNetworkType();
             validateSignal();
+            validateLocationExists();
+            if(validationResults.get("invalidNetwork") == null) {
+                validateMcc();
+                validateSimEqualsOperator();
+                validateTestsInSameNetwork();
+            }
             logger.info(() -> "Validation complete");
         }
         logger.info(() -> "Validation results: "+ validationResults.toString());
@@ -68,7 +80,6 @@ public class MobileCertifiedMeasurementValidator {
 
 
         if(startLat == null || startLong == null) {
-            validationResults.put("invalidLocation", "Invalid location data");
             return;
         }
 
@@ -106,13 +117,37 @@ public class MobileCertifiedMeasurementValidator {
     private void validateMeasurementsTime() {
         logger.info(() -> "Validating measurements time");
 
+        OpenTestDetailsDTO firstTest = testDetails.get(0);
+        OpenTestDetailsDTO lastTest = testDetails.get(testDetails.size() - 1);
         DateTimeFormatter timeFormatter = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
-        DateTime firstTesttime = timeFormatter.parseDateTime(testDetails.get(0).getTime());
-        DateTime lastTesttime = timeFormatter.parseDateTime(testDetails.get(testDetails.size() - 1).getTime());
+        DateTime firstTestTime = timeFormatter.parseDateTime(firstTest.getTime());
+        DateTime lastTestTime = timeFormatter.parseDateTime(lastTest.getTime());
 
-        Minutes minutes = Minutes.minutesBetween(firstTesttime, lastTesttime);
-        if(minutes.getMinutes() > 60) {
+        Double firstUploadStart = firstTest.getTimeUlMs();
+        Double firstUploadDuration = lastTest.getDurationUploadMs();
+
+        Double lastUploadStart = lastTest.getTimeUlMs();
+        Double lastUploadDuration = lastTest.getDurationDownloadMs();
+
+        firstTestTime.plusMillis((int) (firstUploadStart + firstUploadDuration));
+        lastTestTime.plusMillis((int) (lastUploadStart + lastUploadDuration));
+
+        Minutes minutes = Minutes.minutesBetween(firstTestTime, lastTestTime);
+        if(minutes.getMinutes() > MAX_TEST_TIME) {
             validationResults.put("invalidTime", minutes.getMinutes());
+        }
+    }
+
+    private void validateNetworkType() {
+        logger.info(() -> "Validating network type");
+        AtomicInteger testNum = new AtomicInteger(1);
+        List<NetworkTypeResult> invalidTests = testDetails.stream()
+                .map(test -> new NetworkTypeResult(testNum.getAndIncrement(), test.getNetworkType()))
+                .filter(entry -> !"MOBILE".equals(entry.getNetworkType()))
+                .collect(Collectors.toList());
+
+        if(!invalidTests.isEmpty()) {
+            validationResults.put("invalidNetwork", invalidTests);
         }
     }
 
@@ -133,24 +168,65 @@ public class MobileCertifiedMeasurementValidator {
         validationResults.put("invalidRoaming", roaming);
     }
 
-    private void validateMccMnc() {
-        logger.info(() -> "Validating mcc/mnc");
+    private void validateMcc() {
+        logger.info(() -> "Validating mcc");
         AtomicInteger i = new AtomicInteger(1);
-        validationResults.put("invalidMccMnc",testDetails.stream()
-                .map(t -> {
-                    HashMap<Object, Object> map = new HashMap<>();
-                    map.put("testId", i.getAndIncrement());
-                    map.put("simMccMnc", t.getSimMccMnc());
-                    map.put("networkMccMnc", t.getNetworkMccMnc());
-                    return map;
+        List<MccResult> invalidTests = testDetails.stream()
+                .map(test -> new MccResult(i.getAndIncrement(), test.getNetworkMccMnc()))
+                .filter(test -> !test.mcc.startsWith(VALID_MCC))
+                .collect(Collectors.toList());
+
+        if(!invalidTests.isEmpty())
+            validationResults.put("invalidMcc", invalidTests);
+    }
+
+    private void validateSimEqualsOperator() {
+        logger.info(() -> "Validating sim/operator");
+        AtomicInteger i = new AtomicInteger(1);
+        List<SimOperatorResult> invalidTests = testDetails.stream()
+                .map(test -> new SimOperatorResult(i.getAndIncrement(), test.getNetworkMccMnc(), test.getSimMccMnc()))
+                .filter(test -> !Objects.equals(test.networkMccMnc, test.simMccMnc))
+                .collect(Collectors.toList());
+
+        if(!invalidTests.isEmpty()) {
+            validationResults.put("invalidSimOperator", invalidTests);
+        }
+    }
+
+    private void validateTestsInSameNetwork() {
+        logger.info(() -> "Validating same network");
+        String network = testDetails.stream().findFirst().map(OpenTestDetailsDTO::getNetworkMccMnc).orElse("");
+        List<OpenTestDetailsDTO> invalidTests = testDetails.stream()
+                .filter(test -> !network.equals(test.getNetworkMccMnc()))
+                .collect(Collectors.toList());
+
+        if(!invalidTests.isEmpty()) {
+            validationResults.put("invalidSameNetwork", invalidTests);
+        }
+    }
+
+    private void validateLocationExists() {
+        logger.info(() -> "Validating location exists");
+        AtomicInteger i = new AtomicInteger(1);
+        List<Integer> invalidTests = testDetails.stream()
+                .map(test -> {
+                    int testNum = i.getAndIncrement();
+                    if (test.getLatitude() == null || test.getLongitude() == null) {
+                        return testNum;
+                    } else {
+                        return null;
+                    }
                 })
-                .collect(Collectors.toList())
-        );
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+
+        if(!invalidTests.isEmpty()) {
+            validationResults.put("invalidLocation", invalidTests);
+        }
     }
 
     private void validateSignal() {
         logger.info(() -> "Validating signal");
-//        logger.info("Signal rules: "+signalRules.entrySet().stream().map(rule -> String.format("ChannelNumber: %s -> limit: %s",rule.getKey(), rule.getValue().getRsrpLimit())).collect(Collectors.joining(", ")));
         AtomicReference<Integer> testId = new AtomicReference<>(1);
         List<HashMap<String, Object>> invalidList = testDetails.stream()
                 .map(t -> {
@@ -265,6 +341,69 @@ public class MobileCertifiedMeasurementValidator {
             return Optional.ofNullable(number)
                     .map(Number::toString)
                     .orElse("");
+        }
+    }
+
+    public static class NetworkTypeResult {
+        private final Integer testNum;
+        private final String networkType;
+
+        public NetworkTypeResult(Integer testNum, String networkType) {
+            this.testNum = testNum;
+            this.networkType = networkType;
+        }
+
+        public Integer getTestNum() {
+            return testNum;
+        }
+
+        public String getNetworkType() {
+            return networkType;
+        }
+    }
+
+    public static class MccResult {
+        private final Integer testNum;
+        private final String mcc;
+
+        public MccResult(Integer testNum, String mcc) {
+            this.testNum = testNum;
+            if(mcc != null)
+                this.mcc = mcc;
+            else
+                this.mcc = "";
+        }
+
+        public Integer getTestNum() {
+            return testNum;
+        }
+
+        public String getMcc() {
+            return mcc;
+        }
+    }
+
+    public static class SimOperatorResult {
+        private final Integer testNum;
+        private final String networkMccMnc;
+        private final String simMccMnc;
+
+        public SimOperatorResult(Integer testNum, String networkMccMnc, String simMccMnc) {
+            this.testNum = testNum;
+            this.networkMccMnc = networkMccMnc;
+            this.simMccMnc = simMccMnc;
+        }
+
+        public Integer getTestNum() {
+            return testNum;
+        }
+
+        public String getNetworkMccMnc() {
+            return networkMccMnc;
+        }
+
+        public String getSimMccMnc() {
+            return simMccMnc;
         }
     }
 }
