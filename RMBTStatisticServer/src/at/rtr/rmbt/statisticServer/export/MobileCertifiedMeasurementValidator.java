@@ -33,7 +33,7 @@ public class MobileCertifiedMeasurementValidator {
 
     private final List<OpenTestDetailsDTO> testDetails;
 
-    private final Map<Integer, SignalValidationRuleDTO> signalRules;
+    private final List<SignalValidationRuleDTO> signalRules;
 
     private final Map<String, Object> validationResults = new HashMap<>();
 
@@ -44,7 +44,7 @@ public class MobileCertifiedMeasurementValidator {
                 .filter(t -> "FINISHED".equals(t.getStatus()))
                 .map(OpenTestDetailsDTO.class::cast)
                 .collect(Collectors.toList());
-        this.signalRules = signalRules.stream().collect(Collectors.toMap(SignalValidationRuleDTO::getChannelNumber, signal -> signal));
+        this.signalRules = signalRules;
     }
 
     public Map<String, Object> getValidationResults() {
@@ -111,7 +111,9 @@ public class MobileCertifiedMeasurementValidator {
 
     private void validateNumberOfMeasurements() {
         logger.info(() -> "Validating number of tests");
-        validationResults.put("invalidNumOfTests", NUM_OF_TESTS.equals(testDetails.size()) ? "" : testDetails.size());
+        if(NUM_OF_TESTS != testDetails.size()) {
+            validationResults.put("invalidNumOfTests", testDetails.size());
+        }
     }
 
     private void validateMeasurementsTime() {
@@ -261,7 +263,12 @@ public class MobileCertifiedMeasurementValidator {
 
     private SignalResult validateSignalLimit(SignalDTO signal) {
         Integer channelNumber = signal.getChannelNumber();
-        SignalValidationRuleDTO rule = signalRules.get(channelNumber);
+
+        SignalValidationRuleDTO rule = signalRules.stream()
+                .filter(r -> channelNumber >= r.getChannelFrom() && channelNumber <= r.getChannelTo())
+                .findFirst()
+                .orElse(null);
+
         if(rule == null) {
             return new SignalResult(signal, String.format("Nebylo možné ověřit limitní hodnotu síly signálu (Channel number %s)", channelNumber));
         }

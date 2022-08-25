@@ -7,17 +7,10 @@ package at.rtr.rmbt.statisticServer.opendata.dto;
  */
 public class SignalValidationRuleDTO {
 
-    private Integer channelNumber;
     private Integer band;
+    private Integer channelFrom;
+    private Integer channelTo;
     private Integer rsrpLimit;
-
-    public Integer getChannelNumber() {
-        return channelNumber;
-    }
-
-    public void setChannelNumber(Integer channelNumber) {
-        this.channelNumber = channelNumber;
-    }
 
     public Integer getBand() {
         return band;
@@ -25,6 +18,22 @@ public class SignalValidationRuleDTO {
 
     public void setBand(Integer band) {
         this.band = band;
+    }
+
+    public Integer getChannelFrom() {
+        return channelFrom;
+    }
+
+    public void setChannelFrom(Integer channelFrom) {
+        this.channelFrom = channelFrom;
+    }
+
+    public Integer getChannelTo() {
+        return channelTo;
+    }
+
+    public void setChannelTo(Integer channelTo) {
+        this.channelTo = channelTo;
     }
 
     public Integer getRsrpLimit() {
