@@ -260,6 +260,7 @@ public class PdfExportResource extends ServerResource {
             OpenTestDetailsDTO singleTest = dao.getSingleOpenTestDetails(result.getOpenTestUuid(), 0, false);
             List<SignalDTO> signalData = dao.getSignalData(result.getOpenTestUuid());
             singleTest.setSignalList(signalData);
+            singleTest.setStatus(translateStatus(singleTest.getStatus(), language));
             testIterator.set(singleTest);
         }
 
@@ -364,6 +365,18 @@ public class PdfExportResource extends ServerResource {
         MobileCertifiedMeasurementValidator validator = new MobileCertifiedMeasurementValidator(testResults, rules);
         validator.validate();
         return validator.getValidationResults();
+    }
+
+    private String translateStatus(String status, String lang) {
+        if(lang.equals("cs")) {
+            switch (status) {
+                case "FINISHED": return "DOKONČENO";
+                case "ABORTED": return "PŘERUŠENO";
+                default: return "CHYBA";
+            }
+        }
+
+        return status;
     }
 
 
