@@ -165,7 +165,7 @@
                 <tr>
                     <th scope="row">{{add @index 1}}</th>
                     <td>{{toLocalTime time}}</td>
-                    <td>{{status}}</td>
+                    <td>{{translatedStatus}}</td>
                     <td class="text-right">{{toMbit download_kbit}}</td>
                     <td class="text-right">{{toMbit upload_kbit}}</td>
                     <td class="text-right">{{twoSignificantDigits ping_ms}}</td>
@@ -211,7 +211,7 @@
                 {{/if}}
                 {{#if invalidNumOfTests }}
                     <h4>Počet měření</h4>
-                    <ul><li>Počet dokončených měření musí být 6, dokončených měření: {{ invalidNumOfTests }}</li></ul>
+                    <ul><li>Počet dokončených měření musí být 6, dokončených měření: {{ numOfFinishedTests }}</li></ul>
                 {{/if}}
                 {{#if invalidTime }}
                     <h4>Trvání měření</h4>
@@ -303,7 +303,7 @@
                 </colgroup>
                 <tr>
                     <td>Status</td>
-                    <td>{{status}}</td>
+                    <td>{{translatedStatus}}</td>
                 </tr>
                 <tr>
                     <td>{{ Lang.download }}</td>

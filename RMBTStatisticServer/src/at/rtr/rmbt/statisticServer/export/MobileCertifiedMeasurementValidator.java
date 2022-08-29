@@ -112,7 +112,8 @@ public class MobileCertifiedMeasurementValidator {
     private void validateNumberOfMeasurements() {
         logger.info(() -> "Validating number of tests");
         if(NUM_OF_TESTS != testDetails.size()) {
-            validationResults.put("invalidNumOfTests", testDetails.size());
+            validationResults.put("invalidNumOfTests", true);
+            validationResults.put("numOfFinishedTests", testDetails.size());
         }
     }
 

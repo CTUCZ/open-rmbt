@@ -260,7 +260,7 @@ public class PdfExportResource extends ServerResource {
             OpenTestDetailsDTO singleTest = dao.getSingleOpenTestDetails(result.getOpenTestUuid(), 0, false);
             List<SignalDTO> signalData = dao.getSignalData(result.getOpenTestUuid());
             singleTest.setSignalList(signalData);
-            singleTest.setStatus(translateStatus(singleTest.getStatus(), language));
+            singleTest.setTranslatedStatus(translateStatus(singleTest.getStatus(), language));
             testIterator.set(singleTest);
         }
 
