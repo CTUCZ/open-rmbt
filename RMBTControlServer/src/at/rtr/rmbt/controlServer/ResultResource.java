@@ -766,7 +766,7 @@ public class ResultResource extends ServerResource
                                         ///////////
 
 
-                                        if (test.getField("network_type").intValue() <= 0)
+                                        if (test.getField("network_type").intValue() < 0)
                                             errorList.addError("ERROR_NETWORK_TYPE");
 
                                         final IntField downloadField = (IntField) test.getField("speed_download");
