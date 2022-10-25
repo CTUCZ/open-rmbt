@@ -49,6 +49,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 @Api(value="/export/pdf")
 public class PdfExportResource extends ServerResource {
@@ -259,6 +260,7 @@ public class PdfExportResource extends ServerResource {
             OpenTestDTO result = testIterator.next();
             OpenTestDetailsDTO singleTest = dao.getSingleOpenTestDetails(result.getOpenTestUuid(), 0, false);
             List<SignalDTO> signalData = dao.getSignalData(result.getOpenTestUuid());
+            getLogger().info("Signal data: "+signalData.stream().map(SignalDTO::toString).collect(Collectors.joining()));
             singleTest.setSignalList(signalData);
             singleTest.setTranslatedStatus(translateStatus(singleTest.getStatus(), language));
             testIterator.set(singleTest);

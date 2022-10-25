@@ -256,7 +256,7 @@ public class MobileCertifiedMeasurementValidator {
 
     private List<SignalResult> validateSignalList(List<SignalDTO> signalList) {
         return signalList.stream()
-                .filter(signal -> !NO_VALIDATION_SIGNAL_TECHNOLOGIES.contains(signal.getCatTechnology()))
+                .filter(signal -> !NO_VALIDATION_SIGNAL_TECHNOLOGIES.contains(signal.getNetworkTechnology()))
                 .map(this::validateSignalLimit)
                 .filter(Objects::nonNull)
                 .collect(Collectors.toList());

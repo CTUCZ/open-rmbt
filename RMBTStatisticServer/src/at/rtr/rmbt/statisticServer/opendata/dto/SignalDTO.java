@@ -18,9 +18,10 @@ public class SignalDTO {
     private Integer channelNumber;
     private Integer lteRsrp;
     private Integer lterRsrq;
+    private Integer signalStrength;
     private Integer timingAdvance;
     private String networkType;
-    private String catTechnology;
+    private String networkTechnology;
 
     @JsonProperty("time")
     public String getTime() {
@@ -103,15 +104,32 @@ public class SignalDTO {
         this.networkType = networkType;
     }
 
-    @JsonProperty("cat_technology")
-    public String getCatTechnology() {
-        return catTechnology;
+    @JsonProperty("network_technology")
+    public String getNetworkTechnology() {
+        return networkTechnology;
     }
 
-    public void setCatTechnology(String catTechnology) {
-        this.catTechnology = catTechnology;
+    public void setNetworkTechnology(String networkTechnology) {
+        this.networkTechnology = networkTechnology;
     }
 
+    @JsonProperty("signal_strength")
+    public Integer getSignalStrength() {
+        return signalStrength;
+    }
+
+    public void setSignalStrength(Integer signalStrength) {
+        this.signalStrength = signalStrength;
+    }
+
+    @JsonProperty("conditioned_signal_strength")
+    public Integer getConditionedSignalStrength() {
+        if("4G".equals(networkTechnology)) {
+            return lteRsrp;
+        } else {
+            return signalStrength;
+        }
+    }
 
     @Override
     public String toString() {
@@ -125,7 +143,7 @@ public class SignalDTO {
                 .add("lterRsrq=" + lterRsrq)
                 .add("timingAdvance=" + timingAdvance)
                 .add("networkType='" + networkType + "'")
-                .add("catTechnology='" + catTechnology + "'")
+                .add("networkTechnology='" + networkTechnology + "'")
                 .toString();
     }
 }

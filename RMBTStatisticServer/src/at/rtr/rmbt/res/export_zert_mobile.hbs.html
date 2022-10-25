@@ -184,7 +184,7 @@
     <div class="validation" id="validation">
         <h2>Validace</h2>
         <p>
-            V této sekci jsou provedeny některé automatické kontroly výsledků měření, za účelem ověření, zda provedená měření odpovídají stanoveným podmínkám certifikovaného měření.
+            V této sekci jsou provedeny některé automatické kontroly výsledků měření, za účelem ověření, zda provedená měření odpovídají stanoveným podmínkám certifikovaného měření. Výsledkem kontroly je sdělení, jestli byly nebo nebyly detekovány v protokolu chyby a o jaké chyby se jedná.
         </p>
         <div class="detail">
             UUID certifikovaného měření: {{removeFirst loop_uuid}}
@@ -339,10 +339,10 @@
                     <td>{{ Lang.network_type }}</td>
                     <td>{{network_type}}</td>
                 </tr>
-                <tr>
-                    <td>{{ Lang.cat_technology }}</td>
-                    <td>{{cat_technology}}</td>
-                </tr>
+<!--                <tr>-->
+<!--                    <td>{{ Lang.cat_technology }}</td>-->
+<!--                    <td>{{cat_technology}}</td>-->
+<!--                </tr>-->
                 {{#if position}}
                     <tr>
                         <td>{{ Lang.location }}</td>
@@ -498,12 +498,12 @@
                         <td>Čas</td>
                         <td>LocationId</td>
                         <td>Area Code</td>
-                        <td>Scrambling Code</td>
+<!--                        <td>Scrambling Code</td>-->
                         <td>Channel Number</td>
-                        <td>LTE RSRP</td>
-                        <td>LTE RSRQ</td>
-                        <td>Timing Advance</td>
-                        <td>Network Type</td>
+                        <td>RSRP</td>
+                        <td>RSRQ</td>
+<!--                        <td>Timing Advance</td>-->
+<!--                        <td>Network Type</td>-->
                         <td>Technology</td>
                     </tr>
                 </thead>
@@ -513,13 +513,14 @@
                         <td>{{time}}</td>
                         <td>{{location_id}}</td>
                         <td>{{area_code}}</td>
-                        <td>{{primary_scrambling_code}}</td>
+<!--                        <td>{{primary_scrambling_code}}</td>-->
                         <td>{{channel_number}}</td>
-                        <td>{{lte_rsrp}}</td>
+                        <!-- RSRP column -->
+                        <td>{{conditioned_signal_strength}}</td>
                         <td>{{lte_rsrq}}</td>
-                        <td>{{timing_advance}}</td>
-                        <td>{{network_type}}</td>
-                        <td>{{cat_technology}}</td>
+<!--                        <td>{{timing_advance}}</td>-->
+<!--                        <td>{{network_type}}</td>-->
+                        <td>{{network_technology}}</td>
                     </tr>
                 {{/each}}
                 </tbody>
