@@ -47,8 +47,8 @@ import at.rtr.rmbt.db.dao.QoSTestObjectiveDao;
 
 public class QualityOfServiceExportResource extends ServerResource
 {
-    private static final String FILENAME_HTML = "netztest-nndata.html";
-    private static final String FILENAME_ZIP = "netztest-nndata.zip";
+    private static final String FILENAME_HTML = "nettest-nndata.html";
+    private static final String FILENAME_ZIP = "nettest-nndata.zip";
     
     private static final boolean zip = false;
     
@@ -160,7 +160,7 @@ public class QualityOfServiceExportResource extends ServerResource
                 if (zip)
                 {
                     final ZipOutputStream zos = new ZipOutputStream(outf);
-                    final ZipEntry zeLicense = new ZipEntry("LIZENZ.txt");
+                    final ZipEntry zeLicense = new ZipEntry("LICENSE.txt");
                     zos.putNextEntry(zeLicense);
                     final InputStream licenseIS = getClass().getResourceAsStream("DATA_LICENSE.txt");
                     IOUtils.copy(licenseIS, zos);
