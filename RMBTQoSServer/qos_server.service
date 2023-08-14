@@ -1,0 +1,17 @@
+[Unit]
+Description=QoS Server
+After=network.target
+StartLimitIntervalSec=0
+		
+[Service]
+Type=forking
+TimeoutStopSec=10
+Restart=always
+RestartSec=1
+SuccessExitStatus=143
+ExecStart=/opt/rmbt/RMBTQoSServer/qos_server.sh start
+ExecStop=/opt/rmbt/RMBTQoSServer/qos_server.sh stop
+ExecReload=/opt/rmbt/RMBTQoSServer/qos_server.sh restart
+		
+[Install]
+WantedBy=multi-user.target
