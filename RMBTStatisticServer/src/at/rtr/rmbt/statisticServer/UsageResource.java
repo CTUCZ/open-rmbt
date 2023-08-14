@@ -32,7 +32,7 @@ import org.restlet.resource.Get;
 
 public class UsageResource extends ServerResource
 {
-    private final String webRoot = "http://www.netztest.at/en";
+    private final String webRoot = "http://nettest.cz/cs";
     @Get("html")
     public String request(final String entity)
     {

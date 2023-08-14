@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang='de'>
+<html lang='cs'>
 <head>
-    <title>Ergebnis des RTR-Netztest</title>
+    <title>{{ Lang.results_test_cert }}</title>
 
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <!--<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">-->
     <meta charset="UTF-8">
 <!--    <link rel="stylesheet" href="basecss.css"/> -->
     <style>
@@ -116,7 +116,7 @@
 <body>
 <script type="text/x-handlebars" id="template">
     <div class="title-page">
-        <img class="rtr-logo-title" src="data:image/png;base64,{{logo}}" />
+<!--        <img class="rtr-logo-title" src="data:image/png;base64,{{logo}}" />-->
         <h1>{{ Lang.results_certified_measurement }}</h1>
         <p class="date">{{ Lang.generated_at }}: {{date}}</p>
     </div>
@@ -164,7 +164,7 @@
 
         {{#if loop_uuid}}
         <p>{{ Lang.results_url }}:<br/>
-            <a href="https://www.nettest.cz/{{ Lang.lang }}/Opentests?loop_uuid={{loop_uuid}}">https://www.nettest.cz/{{ Lang.lang }}/Opentests?loop_uuid={{loop_uuid}}</a>
+            <a href="https://nettest.cz/{{ Lang.lang }}/Opentests?loop_uuid={{loop_uuid}}">https://nettest.cz/{{ Lang.lang }}/Opentests?loop_uuid={{loop_uuid}}</a>
         </p>
         {{/if }}
     </div>
@@ -330,7 +330,7 @@
                 </tr>
             </table>
             <p>
-                {{ Lang.result_detail_link }}: <br/><a href="https://www.nettest.cz/{{ Lang.lang }}/Opentest?O{{open_test_uuid}}">https://www.nettest.cz/{{ Lang.lang }}/Opentest?O{{open_test_uuid}}</a>
+                {{ Lang.result_detail_link }}: <br/><a href="https://nettest.cz/{{ Lang.lang }}/Opentest?O{{open_test_uuid}}">https://nettest.cz/{{ Lang.lang }}/Opentest?O{{open_test_uuid}}</a>
             </p>
 
             <h3>{{ Lang.detailed_result }}</h3>
@@ -523,7 +523,7 @@
         "measurement_location": "Standort der Messungen",
         "first_cycle_question": "Handelt es sich um den ersten Messzyklus?",
         "yes_first_cycle": "Ja, erster Messzyklus",
-        "no_subsequent_cycle": "Nein, Folgezyklus",p
+        "no_subsequent_cycle": "Nein, Folgezyklus",
         "location_access": "Beschreiben Sie den Standort des Anschlusses",
         "location_access_residential": "Wohnhausanlage",
         "location_access_single_family": "Einfamilienhaus",

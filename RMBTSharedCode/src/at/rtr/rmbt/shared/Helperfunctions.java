@@ -208,7 +208,7 @@ public abstract class Helperfunctions
         case 97:
             return "CLI";
         case 98:
-            return "Prohlížeč";
+            return "Browser";
         case 99:
             return "WLAN";
         case 101:
