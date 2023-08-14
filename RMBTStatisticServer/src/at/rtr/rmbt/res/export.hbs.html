@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang='de'>
+<html lang='cs'>
 <head>
-    <title>{{ Lang.results_test }}</title>
+    <title>{{ Lang.results_test_loop }}</title>
 
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <!--<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">-->
     <meta charset="UTF-8">
 <!--    <link rel="stylesheet" href="basecss.css"/> -->
     <style>
@@ -21,7 +21,7 @@
             margin: 2cm;
 
             @top-center {
-                content: "{{ Lang.results_test }}";
+                content: "{{ Lang.results_test_loop }}";
                 font-size: 12px;
             }
             @bottom-center {
@@ -108,10 +108,10 @@
 <body>
 <script type="text/x-handlebars" id="template">
     <div class="title-page">
-        <img class="rtr-logo-title" src="data:image/png;base64,{{logo}}" />
-        <h1>{{ Lang.results_test }}
+        <!--<img class="rtr-logo-title" src="data:image/png;base64,{{logo}}" />-->
+        <h1>{{ Lang.results_test_loop }}
         </h1>
-        <p class="date">{{ Lang.generated_at }}: {{date}} ({{ Lang.vienna }})</p>
+        <p class="date">{{ Lang.generated_at }}: {{date}}</p>
     </div>
     <div class="toc">
         <h2>{{ Lang.table_of_contents }}</h2>
@@ -156,7 +156,7 @@
 
         {{#if loop_uuid}}
         <p>{{ Lang.results_url }}:<br/>
-            <a href="https://www.netztest.at/{{ Lang.lang }}/Opentests?loop_uuid={{loop_uuid}}">https://www.netztest.at/{{ Lang.lang }}/Opentests?loop_uuid={{loop_uuid}}</a>
+            <a href="https://nettest.cz/{{ Lang.lang }}/Opentests?loop_uuid={{loop_uuid}}">https://nettest.cz/{{ Lang.lang }}/Opentests?loop_uuid={{loop_uuid}}</a>
         </p>
         {{/if }}
     </div>
@@ -193,7 +193,7 @@
                 </tr>
             </table>
             <p>
-                {{ Lang.result_detail_link }}: <br/><a href="https://www.netztest.at/{{ Lang.lang }}/Opentest?O{{open_test_uuid}}">https://www.netztest.at/{{ Lang.lang }}/Opentest?O{{open_test_uuid}}</a>
+                {{ Lang.result_detail_link }}: <br/><a href="https://nettest.cz/{{ Lang.lang }}/Opentest?O{{open_test_uuid}}">https://nettest.cz/{{ Lang.lang }}/Opentest?O{{open_test_uuid}}</a>
             </p>
 
             <h3>{{ Lang.detailed_result }}</h3>
@@ -430,14 +430,14 @@
     const loop_uuid = 'L33c1a04c-610e-4060-8ae7-7c812b7eb512';
     let allData = [];
 
-    fetch('https://m-cloud.netztest.at/RMBTStatisticServer/opentests/search?loop_uuid=' + loop_uuid)
+    fetch('https://nettest.cz/RMBTStatisticServer/opentests/search?loop_uuid=' + loop_uuid)
             .then(response => {
                 return response.json()
             })
             .then(tests => {
                 return Promise.all(
                         tests.results.map(test => {
-                                    return fetch('https://m-cloud.netztest.at/RMBTStatisticServer/opentests/' + test.open_test_uuid)
+                                    return fetch('https://nettest.cz/RMBTStatisticServer/opentests/' + test.open_test_uuid)
                                             .then(response => {
                                                 return response.json();
                                             })
