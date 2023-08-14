@@ -15,7 +15,7 @@
 
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 DIR=/opt/rmbt/RMBTQoSServer
-JAR=$DIR/RMBTQoSTesterver.jar
+JAR=$DIR/RMBTQoSServer.jar
 EXEC=/usr/bin/java
 NAME=qos_server
 DESC=qos_server
