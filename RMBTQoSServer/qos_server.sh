@@ -14,13 +14,13 @@
 
 
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
-DIR=/home/netztest/qos_server
+DIR=/opt/rmbt/RMBTQoSServer
 JAR=$DIR/RMBTQoSTesterver.jar
 EXEC=/usr/bin/java
 NAME=qos_server
 DESC=qos_server
-PIDFILE=/var/run/netztest/qos_server.pid
-USER=netztest
+PIDFILE=/var/run/qos_server.pid
+USER=rmbt
 
 if ! [ -x "/lib/lsb/init-functions" ]; then
         . /lib/lsb/init-functions
@@ -54,4 +54,3 @@ case "$1" in
 esac
 
 exit 0
-
