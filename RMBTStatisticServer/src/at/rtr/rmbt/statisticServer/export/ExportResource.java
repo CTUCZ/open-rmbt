@@ -173,7 +173,7 @@ public class ExportResource extends ServerResource
                 if (ZIP && !xlsx)
                 {
                     final ZipOutputStream zos = new ZipOutputStream(outf);
-                    final ZipEntry zeLicense = new ZipEntry("LIZENZ.txt");
+                    final ZipEntry zeLicense = new ZipEntry("LICENSE.txt");
                     zos.putNextEntry(zeLicense);
                     final InputStream licenseIS = getClass().getResourceAsStream("DATA_LICENSE.txt");
                     IOUtils.copy(licenseIS, zos);
