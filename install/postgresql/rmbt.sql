@@ -1,10 +1,10 @@
--- 2019-07-26_06-46-41 rmbt.sql
+-- 2023-08-23_10-55-41 rmbt.sql
 --
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.9 (Debian 10.9-1.pgdg90+1)
--- Dumped by pg_dump version 10.9 (Debian 10.9-1.pgdg90+1)
+-- Dumped from database version 10.23 (Debian 10.23-1.pgdg100+1)
+-- Dumped by pg_dump version 10.23 (Debian 10.23-1.pgdg100+1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -2864,42 +2864,6 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: device_map; Type: TABLE; Schema: public; Owner: rmbt
---
-
-CREATE TABLE public.device_map (
-    uid integer NOT NULL,
-    codename character varying(200),
-    fullname character varying(200),
-    source character varying(200),
-    "timestamp" timestamp with time zone
-);
-
-
-ALTER TABLE public.device_map OWNER TO rmbt;
-
---
--- Name: android_device_map_uid_seq; Type: SEQUENCE; Schema: public; Owner: rmbt
---
-
-CREATE SEQUENCE public.android_device_map_uid_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.android_device_map_uid_seq OWNER TO rmbt;
-
---
--- Name: android_device_map_uid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: rmbt
---
-
-ALTER SEQUENCE public.android_device_map_uid_seq OWNED BY public.device_map.uid;
-
-
---
 -- Name: as2provider; Type: TABLE; Schema: public; Owner: rmbt
 --
 
@@ -3165,6 +3129,43 @@ ALTER TABLE public.client_uid_seq OWNER TO rmbt;
 --
 
 ALTER SEQUENCE public.client_uid_seq OWNED BY public.client.uid;
+
+
+--
+-- Name: device_map; Type: TABLE; Schema: public; Owner: rmbt
+--
+
+CREATE TABLE public.device_map (
+    codename character varying(200),
+    fullname character varying(200),
+    uid integer NOT NULL,
+    source character varying(200),
+    "timestamp" timestamp with time zone
+);
+
+
+ALTER TABLE public.device_map OWNER TO rmbt;
+
+--
+-- Name: device_map_uid_seq; Type: SEQUENCE; Schema: public; Owner: rmbt
+--
+
+CREATE SEQUENCE public.device_map_uid_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.device_map_uid_seq OWNER TO rmbt;
+
+--
+-- Name: device_map_uid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: rmbt
+--
+
+ALTER SEQUENCE public.device_map_uid_seq OWNED BY public.device_map.uid;
 
 
 --
@@ -3977,6 +3978,49 @@ ALTER SEQUENCE public.provider_uid_seq OWNED BY public.provider.uid;
 
 
 --
+-- Name: qoe_classification; Type: TABLE; Schema: public; Owner: rmbt
+--
+
+CREATE TABLE public.qoe_classification (
+    uid integer NOT NULL,
+    category character varying(30) NOT NULL,
+    dl_4 double precision NOT NULL,
+    dl_3 double precision NOT NULL,
+    dl_2 double precision NOT NULL,
+    ul_4 double precision NOT NULL,
+    ul_3 double precision NOT NULL,
+    ul_2 double precision NOT NULL,
+    ping_4 double precision NOT NULL,
+    ping_3 double precision NOT NULL,
+    ping_2 double precision NOT NULL
+);
+
+
+ALTER TABLE public.qoe_classification OWNER TO rmbt;
+
+--
+-- Name: qoe_classification_uid_seq; Type: SEQUENCE; Schema: public; Owner: rmbt
+--
+
+CREATE SEQUENCE public.qoe_classification_uid_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.qoe_classification_uid_seq OWNER TO rmbt;
+
+--
+-- Name: qoe_classification_uid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: rmbt
+--
+
+ALTER SEQUENCE public.qoe_classification_uid_seq OWNED BY public.qoe_classification.uid;
+
+
+--
 -- Name: qos_test_desc; Type: TABLE; Schema: public; Owner: rmbt
 --
 
@@ -4385,6 +4429,20 @@ ALTER SEQUENCE public.signal_uid_seq OWNED BY public.signal.uid;
 
 
 --
+-- Name: signal_validation_rules; Type: TABLE; Schema: public; Owner: rmbt
+--
+
+CREATE TABLE public.signal_validation_rules (
+    band integer NOT NULL,
+    channel_from integer NOT NULL,
+    channel_to integer NOT NULL,
+    rsrp_limit integer NOT NULL
+);
+
+
+ALTER TABLE public.signal_validation_rules OWNER TO rmbt;
+
+--
 -- Name: speed; Type: TABLE; Schema: public; Owner: rmbt
 --
 
@@ -4685,11 +4743,11 @@ CREATE TABLE public.test (
     frc_obsolete smallint,
     edge_id_obsolete numeric,
     geo_location_uuid uuid,
-    last_client_status varchar(50),
-	last_qos_status varchar(50),
-	test_error_cause varchar,
-	last_sequence_number integer,
-	submission_retry_count integer,
+    last_client_status character varying(50),
+    last_qos_status character varying(50),
+    test_error_cause character varying,
+    last_sequence_number integer,
+    submission_retry_count integer,
     CONSTRAINT enforce_dims_location CHECK ((public.st_ndims(location) = 2)),
     CONSTRAINT enforce_geotype_location CHECK (((public.geometrytype(location) = 'POINT'::text) OR (location IS NULL))),
     CONSTRAINT enforce_srid_location CHECK ((public.st_srid(location) = 900913)),
@@ -4775,7 +4833,7 @@ CREATE TABLE public.test_loopmode (
     max_tests integer,
     test_counter integer,
     loop_uuid uuid,
-    cert_mode bool DEFAULT false
+    cert_mode boolean DEFAULT false
 );
 
 
@@ -4979,28 +5037,6 @@ CREATE VIEW public.v_get_replication_delay AS
 
 
 ALTER TABLE public.v_get_replication_delay OWNER TO postgres;
-
-
-create table if not exists public.qoe_classification
-(
-	uid serial not null
-		constraint qoe_classification_pk
-			primary key,
-	category varchar(30) not null,
-	dl_4 double precision not null,
-	dl_3 double precision not null,
-	dl_2 double precision not null,
-	ul_4 double precision not null,
-	ul_3 double precision not null,
-	ul_2 double precision not null,
-	ping_4 double precision not null,
-	ping_3 double precision not null,
-	ping_2 double precision not null
-);
-
-ALTER TABLE public.qoe_classification OWNER TO rmbt;
-GRANT SELECT ON TABLE public.qoe_classification TO rmbt_group_read_only;
-
 
 --
 -- Name: v_test; Type: VIEW; Schema: public; Owner: postgres
@@ -5373,7 +5409,7 @@ CREATE VIEW public.v_test3 AS
 ALTER TABLE public.v_test3 OWNER TO postgres;
 
 --
--- Name: vt; Type: VIEW; Schema: public; Owner: dj
+-- Name: vt; Type: VIEW; Schema: public; Owner: rmbt
 --
 
 CREATE VIEW public.vt AS
@@ -5498,7 +5534,7 @@ CREATE VIEW public.vt AS
 ALTER TABLE public.vt OWNER TO rmbt;
 
 --
--- Name: VIEW vt; Type: COMMENT; Schema: public; Owner: dj
+-- Name: VIEW vt; Type: COMMENT; Schema: public; Owner: rmbt
 --
 
 COMMENT ON VIEW public.vt IS 'light weight columns from test (dj)';
@@ -5550,7 +5586,7 @@ ALTER TABLE ONLY public.client_type ALTER COLUMN uid SET DEFAULT nextval('public
 -- Name: device_map uid; Type: DEFAULT; Schema: public; Owner: rmbt
 --
 
-ALTER TABLE ONLY public.device_map ALTER COLUMN uid SET DEFAULT nextval('public.android_device_map_uid_seq'::regclass);
+ALTER TABLE ONLY public.device_map ALTER COLUMN uid SET DEFAULT nextval('public.device_map_uid_seq'::regclass);
 
 
 --
@@ -5649,6 +5685,13 @@ ALTER TABLE ONLY public.ping ALTER COLUMN uid SET DEFAULT nextval('public.ping_u
 --
 
 ALTER TABLE ONLY public.provider ALTER COLUMN uid SET DEFAULT nextval('public.provider_uid_seq'::regclass);
+
+
+--
+-- Name: qoe_classification uid; Type: DEFAULT; Schema: public; Owner: rmbt
+--
+
+ALTER TABLE ONLY public.qoe_classification ALTER COLUMN uid SET DEFAULT nextval('public.qoe_classification_uid_seq'::regclass);
 
 
 --
@@ -5778,22 +5821,6 @@ ALTER TABLE ONLY public.test_server ALTER COLUMN uid SET DEFAULT nextval('public
 
 
 --
--- Name: device_map android_device_map_codename_key; Type: CONSTRAINT; Schema: public; Owner: rmbt
---
-
-ALTER TABLE ONLY public.device_map
-    ADD CONSTRAINT android_device_map_codename_key UNIQUE (codename);
-
-
---
--- Name: device_map android_device_map_pkey; Type: CONSTRAINT; Schema: public; Owner: rmbt
---
-
-ALTER TABLE ONLY public.device_map
-    ADD CONSTRAINT android_device_map_pkey PRIMARY KEY (uid);
-
-
---
 -- Name: as2provider as2provider_pkey; Type: CONSTRAINT; Schema: public; Owner: rmbt
 --
 
@@ -5863,14 +5890,6 @@ ALTER TABLE ONLY public.client_type
 
 ALTER TABLE ONLY public.client
     ADD CONSTRAINT client_uuid_key UNIQUE (uuid);
-
-
---
--- Name: device_map device_map_fullname_key; Type: CONSTRAINT; Schema: public; Owner: rmbt
---
-
-ALTER TABLE ONLY public.device_map
-    ADD CONSTRAINT device_map_fullname_key UNIQUE (fullname);
 
 
 --
@@ -6007,6 +6026,14 @@ ALTER TABLE ONLY public.ping
 
 ALTER TABLE ONLY public.provider
     ADD CONSTRAINT provider_pkey PRIMARY KEY (uid);
+
+
+--
+-- Name: qoe_classification qoe_classification_pk; Type: CONSTRAINT; Schema: public; Owner: rmbt
+--
+
+ALTER TABLE ONLY public.qoe_classification
+    ADD CONSTRAINT qoe_classification_pk PRIMARY KEY (uid);
 
 
 --
@@ -6370,6 +6397,13 @@ CREATE INDEX client_client_type_id_idx ON public.client USING btree (client_type
 --
 
 CREATE INDEX client_sync_group_id_idx ON public.client USING btree (sync_group_id);
+
+
+--
+-- Name: device_map_codename_idx; Type: INDEX; Schema: public; Owner: rmbt
+--
+
+CREATE UNIQUE INDEX device_map_codename_idx ON public.device_map USING btree (codename);
 
 
 --
@@ -7189,13 +7223,6 @@ GRANT ALL ON FUNCTION public.interpolate_radio_signal_location(in_open_test_uuid
 
 
 --
--- Name: TABLE device_map; Type: ACL; Schema: public; Owner: rmbt
---
-
-GRANT SELECT ON TABLE public.device_map TO rmbt_group_read_only;
-
-
---
 -- Name: TABLE as2provider; Type: ACL; Schema: public; Owner: rmbt
 --
 
@@ -7258,6 +7285,13 @@ GRANT SELECT ON TABLE public.client_type TO rmbt_group_read_only;
 --
 
 GRANT USAGE ON SEQUENCE public.client_uid_seq TO rmbt_group_control;
+
+
+--
+-- Name: TABLE device_map; Type: ACL; Schema: public; Owner: rmbt
+--
+
+GRANT SELECT ON TABLE public.device_map TO rmbt_group_read_only;
 
 
 --
@@ -7389,6 +7423,13 @@ GRANT USAGE ON SEQUENCE public.ping_uid_seq TO rmbt_group_control;
 --
 
 GRANT SELECT ON TABLE public.provider TO rmbt_group_read_only;
+
+
+--
+-- Name: TABLE qoe_classification; Type: ACL; Schema: public; Owner: rmbt
+--
+
+GRANT SELECT ON TABLE public.qoe_classification TO rmbt_group_read_only;
 
 
 --
@@ -7622,13 +7663,6 @@ GRANT SELECT ON TABLE public.v_dl_bandwidth_per_minute TO rmbt_group_read_only;
 
 
 --
--- Name: TABLE v_get_replication_delay; Type: ACL; Schema: public; Owner: postgres
---
-
---GRANT SELECT ON TABLE public.v_get_replication_delay TO nagios;
-
-
---
 -- Name: TABLE v_test; Type: ACL; Schema: public; Owner: postgres
 --
 
@@ -7654,4 +7688,3 @@ GRANT SELECT ON TABLE public.v_test3 TO rmbt;
 --
 -- PostgreSQL database dump complete
 --
-
