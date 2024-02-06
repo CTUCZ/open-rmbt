@@ -1,20 +1,20 @@
 {
   "swagger" : "2.0",
   "info" : {
-    "description" : "Open Data API for RTR-Netztest\n For further information, please consult <https://www.netztest.at/en/Opendata>\n For high-volume requests, please contact RTR (netztest@rtr.at) for instructions regarding the parameter \"sender\". Users with a registered sender ID can be informed in case of major interface changes.\n Data accessible via the Open Data Interface are made available under Creative Commons Attribution 4.0 (CC BY 4.0). Regarding privacy policy and terms of use, please refer to https://www.rtr.at/en/tk/netztestterms.",
+    "description" : "Open Data API for CTU-NetTest\n For further information, please consult <https://nettest.cz/en/Opendata>\n Data accessible via the Open Data Interface are made available under Creative Commons Attribution 4.0 (CC BY 4.0). Regarding privacy policy and terms of use, please refer to https://nettest.cz/en/Privacy",
     "version" : "v1",
-    "title" : "RTR NetTest OpenData",
+    "title" : "CTU NetTest OpenData",
     "contact" : {
-      "name" : "RTR-Netztest-Team",
-      "url" : "https://www.netztest.at",
-      "email" : "netztest@rtr.at"
+      "name" : "CTU-NetTest-Team",
+      "url" : "https://nettest.cz",
+      "email" : "nettest@ctu.cz"
     },
     "license" : {
       "name" : "Apache 2.0",
       "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
     }
   },
-  "host" : "data.netztest.at",
+  "host" : "nettest.cz",
   "basePath" : "/RMBTStatisticServer",
   "tags" : [ {
     "name" : "export"
@@ -27,7 +27,7 @@
   } ],
   "schemes" : [ "https" ],
   "paths" : {
-    "/export/netztest-opendata-{year}-{month}.{format}" : {
+    "/export/nettest-opendata-{year}-{month}.{format}" : {
       "get" : {
         "tags" : [ "export" ],
         "summary" : "Export open data as CSV or XLSX",
@@ -39,7 +39,7 @@
           "description" : "Mandatory. The year that should be exported.",
           "required" : true,
           "type" : "string",
-          "x-example" : "2017"
+          "x-example" : "2021"
         }, {
           "name" : "month",
           "in" : "path",
@@ -1032,7 +1032,7 @@
         },
         "server_name" : {
           "type" : "string",
-          "example" : "RTR-DEVELOP-SERVER",
+          "example" : "CTU-DEVELOP-SERVER",
           "description" : "Name of the test-server."
         },
         "implausible" : {
