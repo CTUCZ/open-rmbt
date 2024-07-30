@@ -208,5 +208,5 @@ Installation
 Get in Touch
 ------------
 
-* [CTU-NetTest](https://nettest.cz) on the web
+* [CTU-NetTest](https://nettest.ctu.gov.cz) on the web
 * [RTR-Netztest](https://www.netztest.at) on the web

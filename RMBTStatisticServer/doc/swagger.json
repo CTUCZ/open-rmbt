@@ -1,12 +1,12 @@
 {
   "swagger" : "2.0",
   "info" : {
-    "description" : "Open Data API for CTU-NetTest\n For further information, please consult <https://nettest.cz/en/Opendata>\n Data accessible via the Open Data Interface are made available under Creative Commons Attribution 4.0 (CC BY 4.0). Regarding privacy policy and terms of use, please refer to https://nettest.cz/en/Privacy",
+    "description" : "Open Data API for CTU-NetTest\n For further information, please consult <https://nettest.ctu.gov.cz/en/Opendata>\n Data accessible via the Open Data Interface are made available under Creative Commons Attribution 4.0 (CC BY 4.0). Regarding privacy policy and terms of use, please refer to https://nettest.ctu.gov.cz/en/Privacy",
     "version" : "v1",
     "title" : "CTU NetTest OpenData",
     "contact" : {
       "name" : "CTU-NetTest-Team",
-      "url" : "https://nettest.cz",
+      "url" : "https://nettest.ctu.gov.cz",
       "email" : "nettest@ctu.cz"
     },
     "license" : {
@@ -14,7 +14,7 @@
       "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
     }
   },
-  "host" : "nettest.cz",
+  "host" : "nettest.ctu.gov.cz",
   "basePath" : "/RMBTStatisticServer",
   "tags" : [ {
     "name" : "export"
