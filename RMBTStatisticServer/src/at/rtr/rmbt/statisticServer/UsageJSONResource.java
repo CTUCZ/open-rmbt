@@ -73,7 +73,7 @@ public class UsageJSONResource extends ServerResource
         	
         	Calendar now = new GregorianCalendar();
         	Calendar monthBegin = new GregorianCalendar((year>0)?year:now.get(Calendar.YEAR), (month>=0)?month:now.get(Calendar.MONTH), 1);
-        	Calendar monthEnd = new GregorianCalendar((year>0)?year:now.get(Calendar.YEAR), (month>=0)?month:now.get(Calendar.MONTH), monthBegin.getActualMaximum(Calendar.DAY_OF_MONTH));
+        	Calendar monthEnd = new GregorianCalendar((year>0)?year:now.get(Calendar.YEAR), (month>=0)?month:now.get(Calendar.MONTH), monthBegin.getActualMaximum(Calendar.DAY_OF_MONTH), 23, 59, 59);
         	//if now -> do not use the last day
         	if (month == now.get(Calendar.MONTH) && year == now.get(Calendar.YEAR)){
         		monthEnd = now;
