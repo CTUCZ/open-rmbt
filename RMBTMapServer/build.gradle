@@ -15,7 +15,8 @@ project.webAppDirName = 'WebContent'
 
 repositories {
     mavenCentral()
-    maven{url 'http://maven.restlet.com'}
+//    maven{url 'http://maven.restlet.com'}
+    maven{url 'https://maven.restlet.talend.com'}
     maven{url 'https://oss.sonatype.org/content/repositories/snapshots/'}
 }
 
