@@ -366,6 +366,7 @@ public class SettingsResource extends ServerResource
                         jsonItemURLs.put("url_ipv4_check", getSetting("url_ipv4_check", lang));
                         jsonItemURLs.put("url_ipv6_check", getSetting("url_ipv6_check", lang));
                         jsonItemURLs.put("url_map_server", getSetting("url_map_server", lang));
+                        jsonItemURLs.put("url_statistic_server", getSetting("url_statistic_server", lang));
                     
                         jsonItem.put("urls",jsonItemURLs);
                         
