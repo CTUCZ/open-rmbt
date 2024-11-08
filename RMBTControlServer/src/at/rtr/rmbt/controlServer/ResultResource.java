@@ -890,7 +890,7 @@ public class ResultResource extends ServerResource
         Logger logger = Logger.getLogger(ResultResource.class.getName());
 
         // test z desktopu: request.type == 'DESKTOP'
-        if("DESKTOP".equals(request.getString("type"))) {
+        if("DESKTOP".equals(request.optString("type"))) {
             logger.info("Test result is from DESKTOP, saving user address...");
             // get loop_uuid by test_uuid
             try(PreparedStatement ps = conn.prepareStatement("SELECT loop_uuid FROM public.test_loopmode WHERE test_uuid = ?")) {
