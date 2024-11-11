@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang='cs'>
 <head>
-    <title>{{ Lang.results_test_loop }}</title>
+    <title>{{ Lang.results_test }}</title>
 
     <!--<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">-->
     <meta charset="UTF-8">
@@ -21,7 +21,7 @@
             margin: 2cm;
 
             @top-center {
-                content: "{{ Lang.results_test_loop }}";
+                content: "{{ Lang.results_test }}";
                 font-size: 12px;
             }
             @bottom-center {
@@ -109,9 +109,9 @@
 <script type="text/x-handlebars" id="template">
     <div class="title-page">
         <!--<img class="rtr-logo-title" src="data:image/png;base64,{{logo}}" />-->
-        <h1>{{ Lang.results_test_loop }}
+        <h1>{{ Lang.results_test }}
         </h1>
-        <p class="date">{{ Lang.generated_at }}: {{date}}</p>
+        <p class="date">{{ Lang.generated_at }}: {{date}} ({{Lang.prague}})</p>
     </div>
     <div class="toc">
         <h2>{{ Lang.table_of_contents }}</h2>
