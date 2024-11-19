@@ -118,7 +118,7 @@
     <div class="title-page">
 <!--        <img class="rtr-logo-title" src="data:image/png;base64,{{logo}}" />-->
         <h1>{{ Lang.results_certified_measurement }}</h1>
-        <p class="date">{{ Lang.generated_at }}: {{date}}</p>
+        <p class="date">{{ Lang.generated_at }}: {{date}} ({{Lang.prague}})</p>
     </div>
     <div class="toc">
         <h2>{{ Lang.table_of_contents }}</h2>
@@ -255,6 +255,15 @@
                </p>
                <p class="col-xs-8">
                    {{ isp_contract_number }}
+               </p>
+           </div>
+           </div>
+           <div class="row">
+               <p class="col-xs-4 text-right">
+                   <strong>{{ Lang.provider_speed }}</strong>
+               </p>
+               <p class="col-xs-8">
+                   {{ isp_speed }}
                </p>
            </div>
 

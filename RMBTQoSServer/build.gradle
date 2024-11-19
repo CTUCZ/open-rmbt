@@ -13,7 +13,8 @@ tasks.withType(JavaCompile) {
 
 repositories {
     mavenCentral()
-    maven{url 'http://maven.restlet.com'}
+    maven{url 'https://maven.restlet.talend.com'}
+//    maven{url 'http://maven.restlet.com'}
 }
 
 
