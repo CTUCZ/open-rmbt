@@ -889,38 +889,6 @@ public class ResultResource extends ServerResource
     private void markTestCertModeAndSaveUserAddress(final JSONObject request, final UUID testUuid) throws SQLException {
         Logger logger = Logger.getLogger(ResultResource.class.getName());
 
-        // test z desktopu: request.type == 'DESKTOP'
-        if("DESKTOP".equals(request.optString("type"))) {
-            logger.info("Test result is from DESKTOP, saving user address...");
-            // get loop_uuid by test_uuid
-            try(PreparedStatement ps = conn.prepareStatement("SELECT loop_uuid FROM public.test_loopmode WHERE test_uuid = ?")) {
-                ps.setObject(1, testUuid);
-                final ResultSet resultSet = ps.executeQuery();
-                if(resultSet.next()) {
-                    final UUID loopUuid = (UUID) resultSet.getObject("loop_uuid");
-                    final String userAddress = request.getString("user_address");
-                    final int amCode = request.getInt("user_address_am_code");
-                    final float xWgs = request.getFloat("user_address_x_wgs");
-                    final float yWgs = request.getFloat("user_address_y_wgs");
-                    logger.info("loop_uuid found, saving user address: " + loopUuid + ", " + userAddress + ", AM: " + amCode + ", X: " + xWgs + ", Y: " + yWgs);
-                    String insertSql = "INSERT INTO test_cert_address (loop_uuid, address, am_code, x_wgs, y_wgs) VALUES(?, ?, ?, ?, ?) ON CONFLICT DO NOTHING";
-
-                    try(PreparedStatement psInsert = conn.prepareStatement(insertSql)) {
-                        psInsert.setObject(1, loopUuid);
-                        psInsert.setString(2, userAddress);
-                        psInsert.setInt(3, amCode);
-                        psInsert.setFloat(4, xWgs);
-                        psInsert.setFloat(5, yWgs);
-                        psInsert.executeUpdate();
-                    }
-                } else {
-                    logger.warning("Could not find loop_uuid by testUUID: " + testUuid);
-                }
-            }
-        } else {
-            logger.info("Test result is NOT from DESKTOP, skipping saving user address...");
-        }
-
         if(request.optBoolean("user_cert_mode")) {
             try (PreparedStatement ps = conn.prepareStatement("UPDATE public.test_loopmode SET cert_mode=true WHERE test_uuid = ?")) {
                 ps.setObject(1, testUuid);
@@ -929,6 +897,38 @@ public class ResultResource extends ServerResource
                 if(rowsUpdated != 1) {
                     logger.warning("Certmode update for test "+testUuid+" was not updated as cert mode.");
                 }
+            }
+
+            // test z desktopu: request.type == 'DESKTOP'
+            if("DESKTOP".equals(request.optString("type"))) {
+                logger.info("Test result is from DESKTOP, saving user address...");
+                // get loop_uuid by test_uuid
+                try(PreparedStatement ps = conn.prepareStatement("SELECT loop_uuid FROM public.test_loopmode WHERE test_uuid = ?")) {
+                    ps.setObject(1, testUuid);
+                    final ResultSet resultSet = ps.executeQuery();
+                    if(resultSet.next()) {
+                        final UUID loopUuid = (UUID) resultSet.getObject("loop_uuid");
+                        final String userAddress = request.getString("user_address");
+                        final int amCode = request.getInt("user_address_am_code");
+                        final float xWgs = request.getFloat("user_address_x_wgs");
+                        final float yWgs = request.getFloat("user_address_y_wgs");
+                        logger.info("loop_uuid found, saving user address: " + loopUuid + ", " + userAddress + ", AM: " + amCode + ", X: " + xWgs + ", Y: " + yWgs);
+                        String insertSql = "INSERT INTO test_cert_address (loop_uuid, address, am_code, x_wgs, y_wgs) VALUES(?, ?, ?, ?, ?) ON CONFLICT DO NOTHING";
+
+                        try(PreparedStatement psInsert = conn.prepareStatement(insertSql)) {
+                            psInsert.setObject(1, loopUuid);
+                            psInsert.setString(2, userAddress);
+                            psInsert.setInt(3, amCode);
+                            psInsert.setFloat(4, xWgs);
+                            psInsert.setFloat(5, yWgs);
+                            psInsert.executeUpdate();
+                        }
+                    } else {
+                        logger.warning("Could not find loop_uuid by testUUID: " + testUuid);
+                    }
+                }
+            } else {
+                logger.info("Test result is NOT from DESKTOP, skipping saving user address...");
             }
         } else {
             logger.info("CertMode update for test "+testUuid+" is not marked as cert mode");
