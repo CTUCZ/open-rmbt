@@ -100,7 +100,7 @@ public class UiServicesAdapter implements UiServices
     
     public String getClientApp()
     {
-        return "RTR-NetTest";
+        return "CTU-NetTest";
     }
     
     public void setVariable(final String name, final int value)

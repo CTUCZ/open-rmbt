@@ -334,7 +334,7 @@ public class ImageExport extends ServerResource {
             Graphics2D g = (Graphics2D)img.getGraphics(); 
             g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-            BufferedImage img2 = ImageIO.read(getClass().getResourceAsStream("netztest-thumbnail.png"));
+            BufferedImage img2 = ImageIO.read(getClass().getResourceAsStream("nettest-thumbnail.png"));
             g.drawImage(img2, null, 0, 0);
 
             //Speeds

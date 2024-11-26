@@ -2,7 +2,7 @@
 
 # dz
 # 
-# Create rmbt.sql - database schema for RTR-Netztest
+# Create rmbt.sql - database schema for CTU-NetTest
 # GIT location: /install/postgresql/rmbt.sql
 
 
@@ -19,5 +19,6 @@ echo "-- $DATE $OUTPUT" > $OUTPUT
 # Dump schema
 pg_dump -s rmbt >> $OUTPUT
 # Remove ^M (DOS-linebreaks)
-sed -ie "s///" $OUTPUT
+sed -ie "s/
+//" $OUTPUT
 test -r $OUTPUT                     && echo "$OUTPUT created." && exit 1
