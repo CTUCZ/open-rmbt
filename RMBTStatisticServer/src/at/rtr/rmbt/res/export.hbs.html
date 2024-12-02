@@ -107,6 +107,7 @@
 </head>
 <body>
 <script type="text/x-handlebars" id="template">
+    {{#with tests.[1]}}
     <div class="title-page">
         <!--<img class="rtr-logo-title" src="data:image/png;base64,{{logo}}" />-->
         <h1>{{ Lang.results_test }}
@@ -161,6 +162,7 @@
         </p>
         {{/if }}
     </div>
+    {{/with}}
 
     <div class="test-details" id="test-details">
         {{#each tests}}
