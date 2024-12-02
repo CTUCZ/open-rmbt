@@ -94,21 +94,19 @@ swagger {
         springmvc = false
         locations = ['at.rtr.rmbt.statisticServer','at.rtr.rmbt.statisticSerer.opendata.dto']
         schemes = ['https']
-        host = 'data.netztest.at'
+        host = 'nettest.ctu.gov.cz'
         basePath = '/RMBTStatisticServer'
         info {
             title = 'RTR NetTest OpenData'
             version = 'v1'
-            description = 'Open Data API for RTR-Netztest\n ' +
-                    'For further information, please consult <https://www.netztest.at/en/Opendata>\n ' +
-                    'For high-volume requests, please contact RTR (netztest@rtr.at) for instructions regarding the parameter "sender". ' +
-                    'Users with a registered sender ID can be informed in case of major interface changes.\n ' +
+            description = 'Open Data API for CTU-NetTest\n ' +
+                    'For further information, please consult <https://nettest.ctu.gov.cz/en/Opendata>\n ' +
                     'Data accessible via the Open Data Interface are made available under Creative Commons Attribution 4.0 (CC BY 4.0). ' +
-                    'Regarding privacy policy and terms of use, please refer to https://www.rtr.at/en/tk/netztestterms.'
+                    'Regarding privacy policy and terms of use, please refer to https://nettest.ctu.gov.cz/en/Privacy.'
             contact {
-                email = 'netztest@rtr.at'
-                name = 'RTR-Netztest-Team'
-                url = 'https://www.netztest.at'
+                email = 'nettest@ctu.cz'
+                name = 'CTU-NetTest-Team'
+                url = 'https://nettest.ctu.gov.cz'
             }
             license {
                 url = 'http://www.apache.org/licenses/LICENSE-2.0.html'

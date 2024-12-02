@@ -22,14 +22,14 @@
     <target name="create_run_jar">
         <jar destfile="/tmp/RMBTApplet.jar" filesetmanifest="mergewithoutmain">
             <manifest>
-                <attribute name="Application-Name" value="RTR-Netztest"/>
+                <attribute name="Application-Name" value="CTU-NetTest"/>
                 <attribute name="Main-Class" value="at.rtr.rmbt.client.RMBTClientRunner"/>
                 <attribute name="Class-Path" value="."/>
                 <attribute name="Trusted-Library" value="true"/>
                 <attribute name="Permissions" value="all-permissions"/>
-                <attribute name="Codebase" value="https://*.netztest.at"/>
-                <attribute name="Application-Library-Allowable-Codebase" value="https://*.netztest.at"/>
-                <attribute name="Caller-Allowable-Codebase" value="*.netztest.at"/>
+                <attribute name="Codebase" value="https://*.nettest.ctu.gov.cz"/>
+                <attribute name="Application-Library-Allowable-Codebase" value="https://*.nettest.ctu.gov.cz"/>
+                <attribute name="Caller-Allowable-Codebase" value="*.nettest.ctu.gov.cz"/>
             </manifest>
             <fileset dir="bin"/>
             <fileset dir="../RMBTUtil/bin"/>
