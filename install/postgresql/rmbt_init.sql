@@ -1,11 +1,11 @@
 -- 
--- 2023-08-23_13-22-37 rmbt_init.sql table provider
+-- 2024-12-02_12-06-32 rmbt_init.sql table provider
 --
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.23 (Debian 10.23-1.pgdg100+1)
--- Dumped by pg_dump version 10.23 (Debian 10.23-1.pgdg100+1)
+-- Dumped from database version 10.23 (Debian 10.23-6.pgdg110+1)
+-- Dumped by pg_dump version 10.23 (Debian 10.23-6.pgdg110+1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -130,13 +130,13 @@ SELECT pg_catalog.setval('public.provider_uid_seq', 200, true);
 -- PostgreSQL database dump complete
 --
 
--- 2023-08-23_13-22-37 rmbt_init.sql table as2provider
+-- 2024-12-02_12-06-32 rmbt_init.sql table as2provider
 --
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.23 (Debian 10.23-1.pgdg100+1)
--- Dumped by pg_dump version 10.23 (Debian 10.23-1.pgdg100+1)
+-- Dumped from database version 10.23 (Debian 10.23-6.pgdg110+1)
+-- Dumped by pg_dump version 10.23 (Debian 10.23-6.pgdg110+1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -244,13 +244,13 @@ SELECT pg_catalog.setval('public.as2provider_uid_seq', 165, true);
 -- PostgreSQL database dump complete
 --
 
--- 2023-08-23_13-22-37 rmbt_init.sql table client_type
+-- 2024-12-02_12-06-32 rmbt_init.sql table client_type
 --
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.23 (Debian 10.23-1.pgdg100+1)
--- Dumped by pg_dump version 10.23 (Debian 10.23-1.pgdg100+1)
+-- Dumped from database version 10.23 (Debian 10.23-6.pgdg110+1)
+-- Dumped by pg_dump version 10.23 (Debian 10.23-6.pgdg110+1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -282,13 +282,13 @@ SELECT pg_catalog.setval('public.client_type_uid_seq', 2, true);
 -- PostgreSQL database dump complete
 --
 
--- 2023-08-23_13-22-37 rmbt_init.sql table mcc2country
+-- 2024-12-02_12-06-32 rmbt_init.sql table mcc2country
 --
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.23 (Debian 10.23-1.pgdg100+1)
--- Dumped by pg_dump version 10.23 (Debian 10.23-1.pgdg100+1)
+-- Dumped from database version 10.23 (Debian 10.23-6.pgdg110+1)
+-- Dumped by pg_dump version 10.23 (Debian 10.23-6.pgdg110+1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -522,13 +522,13 @@ INSERT INTO public.mcc2country (mcc, country) VALUES ('750', 'fk');
 -- PostgreSQL database dump complete
 --
 
--- 2023-08-23_13-22-37 rmbt_init.sql table mccmnc2name
+-- 2024-12-02_12-06-32 rmbt_init.sql table mccmnc2name
 --
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.23 (Debian 10.23-1.pgdg100+1)
--- Dumped by pg_dump version 10.23 (Debian 10.23-1.pgdg100+1)
+-- Dumped from database version 10.23 (Debian 10.23-6.pgdg110+1)
+-- Dumped by pg_dump version 10.23 (Debian 10.23-6.pgdg110+1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -2212,13 +2212,13 @@ SELECT pg_catalog.setval('public.mccmnc2name_uid_seq', 3296, true);
 -- PostgreSQL database dump complete
 --
 
--- 2023-08-23_13-22-37 rmbt_init.sql table mccmnc2provider
+-- 2024-12-02_12-06-32 rmbt_init.sql table mccmnc2provider
 --
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.23 (Debian 10.23-1.pgdg100+1)
--- Dumped by pg_dump version 10.23 (Debian 10.23-1.pgdg100+1)
+-- Dumped from database version 10.23 (Debian 10.23-6.pgdg110+1)
+-- Dumped by pg_dump version 10.23 (Debian 10.23-6.pgdg110+1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -2292,13 +2292,13 @@ SELECT pg_catalog.setval('public.mccmnc2provider_uid_seq', 79, true);
 -- PostgreSQL database dump complete
 --
 
--- 2023-08-23_13-22-37 rmbt_init.sql table network_type
+-- 2024-12-02_12-06-32 rmbt_init.sql table network_type
 --
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.23 (Debian 10.23-1.pgdg100+1)
--- Dumped by pg_dump version 10.23 (Debian 10.23-1.pgdg100+1)
+-- Dumped from database version 10.23 (Debian 10.23-6.pgdg110+1)
+-- Dumped by pg_dump version 10.23 (Debian 10.23-6.pgdg110+1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -2368,13 +2368,13 @@ SELECT pg_catalog.setval('public.network_type_uid_seq', 16, true);
 -- PostgreSQL database dump complete
 --
 
--- 2023-08-23_13-22-37 rmbt_init.sql table qos_test_desc
+-- 2024-12-02_12-06-32 rmbt_init.sql table qos_test_desc
 --
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.23 (Debian 10.23-1.pgdg100+1)
--- Dumped by pg_dump version 10.23 (Debian 10.23-1.pgdg100+1)
+-- Dumped from database version 10.23 (Debian 10.23-6.pgdg110+1)
+-- Dumped by pg_dump version 10.23 (Debian 10.23-6.pgdg110+1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -2920,13 +2920,13 @@ SELECT pg_catalog.setval('public.qos_test_desc_uid_seq', 359, true);
 -- PostgreSQL database dump complete
 --
 
--- 2023-08-23_13-22-37 rmbt_init.sql table qos_test_type_desc
+-- 2024-12-02_12-06-32 rmbt_init.sql table qos_test_type_desc
 --
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.23 (Debian 10.23-1.pgdg100+1)
--- Dumped by pg_dump version 10.23 (Debian 10.23-1.pgdg100+1)
+-- Dumped from database version 10.23 (Debian 10.23-6.pgdg110+1)
+-- Dumped by pg_dump version 10.23 (Debian 10.23-6.pgdg110+1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -2965,13 +2965,13 @@ SELECT pg_catalog.setval('public.qos_test_type_desc_uid_seq', 40, true);
 -- PostgreSQL database dump complete
 --
 
--- 2023-08-23_13-22-37 rmbt_init.sql table qos_test_objective
+-- 2024-12-02_12-06-32 rmbt_init.sql table qos_test_objective
 --
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.23 (Debian 10.23-1.pgdg100+1)
--- Dumped by pg_dump version 10.23 (Debian 10.23-1.pgdg100+1)
+-- Dumped from database version 10.23 (Debian 10.23-6.pgdg110+1)
+-- Dumped by pg_dump version 10.23 (Debian 10.23-6.pgdg110+1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -2997,9 +2997,7 @@ INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concu
 INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concurrency_group, test_desc, test_summary, param, results) VALUES (115, 'dns', 1, 35, 630, 'dns.testinfo', 'test.desc.dns', '{"host": "youtube.com", "record": "AAAA", "timeout": "5000000000"}', '[{"operator": "ge", "on_failure": "dns.failure", "on_success": "dns.success", "dns_result_entries_found": "1"},{"operator": "ne", "on_failure": "test.timeout.exceeded", "dns_result_info": "TIMEOUT"}]');
 INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concurrency_group, test_desc, test_summary, param, results) VALUES (87, 'dns', 1, 35, 600, 'dns.testinfo', 'test.desc.dns', '{"host": "facebook.com", "record": "A", "timeout": "5000000000"}', '[{"operator": "ge", "on_failure": "dns.failure", "on_success": "dns.success", "dns_result_entries_found": "1"},{"operator": "ne", "on_failure": "test.timeout.exceeded", "dns_result_info": "TIMEOUT"}]');
 INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concurrency_group, test_desc, test_summary, param, results) VALUES (123, 'non_transparent_proxy', 1, 35, 300, 'ntp.testinfo', 'test.desc.ntp', '{"port": "%RANDOM 20000 55000%", "request": "GET ", "timeout": "5000000000"}', '[{"operator": "eq", "on_failure": "ntp.failure", "on_success": "ntp.success", "nontransproxy_result_response": "%PARAM nontransproxy_objective_request%"}]');
-INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concurrency_group, test_desc, test_summary, param, results) VALUES (171, 'dns', 1, 35, 610, 'dns.unknowndomain.info', 'test.desc.dns', '{"host": "ipv4test.nettest.ctu.gov.cz", "record": "AAAA", "timeout": "5000000000"}', '[{"operator": "eq", "on_failure": "dns.unknowndomain.failure", "on_success": "dns.unknowndomain.success", "dns_result_entries_found": "0"},{"operator": "ne", "on_failure": "test.timeout.exceeded", "dns_result_info": "TIMEOUT"}]');
 INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concurrency_group, test_desc, test_summary, param, results) VALUES (102, 'dns', 1, 35, 620, 'dns.testinfo', 'test.desc.dns', '{"host": "ceskatelevize.cz", "record": "A", "timeout": "5000000000"}', '[{"operator": "ge", "on_failure": "dns.failure", "on_success": "dns.success", "dns_result_entries_found": "1"},{"operator": "ne", "on_failure": "test.timeout.exceeded", "dns_result_info": "TIMEOUT"}]');
-INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concurrency_group, test_desc, test_summary, param, results) VALUES (104, 'dns', 1, 35, 630, 'dns.testinfo', 'test.desc.dns', '{"host": "ctu.cz", "record": "A", "timeout": "5000000000"}', '[{"operator": "ge", "on_failure": "dns.failure", "on_success": "dns.success", "dns_result_entries_found": "1"},{"operator": "ne", "on_failure": "test.timeout.exceeded", "dns_result_info": "TIMEOUT"}]');
 INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concurrency_group, test_desc, test_summary, param, results) VALUES (127, 'http_proxy', 0, 35, 402, 'http.testinfo', 'test.desc.http', '{"url": "http://webtest.nettest.at/qostest/ref45mb.bin", "conn_timeout": "5000000000", "download_timeout": "999000000000"}', NULL);
 INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concurrency_group, test_desc, test_summary, param, results) VALUES (120, 'udp', 1, 35, 200, 'udp.out.testinfo', 'test.desc.udp.out.554', '{"timeout": "2000000000", "out_port": "554", "out_num_packets": "5"}', '[{"operator": "eq", "on_failure": "udp.failure", "on_success": "udp.success", "udp_result_out_response_num_packets": "%PARAM udp_objective_out_num_packets%"}]');
 INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concurrency_group, test_desc, test_summary, param, results) VALUES (168, 'traceroute_masked', 0, 35, 100, 'trace.testinfo', 'test.desc.trace', '{"host":"www.google.com","timeout":"10000000000"}', '[{"operator":"eq","on_failure":"traceroute.failure","on_success":"traceroute.success","traceroute_result_status":"OK"}]');
@@ -3014,12 +3012,11 @@ INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concu
 INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concurrency_group, test_desc, test_summary, param, results) VALUES (45, 'tcp', 1, 35, 200, 'tcp.out.testinfo', 'test.desc.tcp.out.587', '{"timeout": "5000000000", "out_port": "587"}', '[{"operator": "eq", "on_failure": "tcp.failure", "on_success": "tcp.success", "tcp_result_out": "OK"}]');
 INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concurrency_group, test_desc, test_summary, param, results) VALUES (77, 'dns', 1, 35, 630, 'dns.unknowndomain.info', 'test.desc.dns', '{"host": "%RANDOMURL invalidname. 10 .com%", "record": "A", "timeout": "5000000000"}', '[{"operator": "eq", "on_failure": "dns.unknowndomain.failure", "on_success": "dns.unknowndomain.success", "dns_result_entries_found": "0"},{"operator": "ne", "on_failure": "test.timeout.exceeded", "dns_result_info": "TIMEOUT"}]');
 INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concurrency_group, test_desc, test_summary, param, results) VALUES (48, 'tcp', 1, 35, 200, 'tcp.out.testinfo', 'test.desc.tcp.out.5060', '{"timeout": "5000000000", "out_port": "5060"}', '[{"operator": "eq", "on_failure": "tcp.failure", "on_success": "tcp.success", "tcp_result_out": "OK"}]');
+INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concurrency_group, test_desc, test_summary, param, results) VALUES (171, 'dns', 1, 35, 610, 'dns.unknowndomain.info', 'test.desc.dns', '{"host": "ipv4test.nettest.ctu.gov.cz", "record": "AAAA", "timeout": "5000000000"}', '[{"operator": "eq", "on_failure": "dns.unknowndomain.failure", "on_success": "dns.unknowndomain.success", "dns_result_entries_found": "0"},{"operator": "ne", "on_failure": "test.timeout.exceeded", "dns_result_info": "TIMEOUT"}]');
 INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concurrency_group, test_desc, test_summary, param, results) VALUES (118, 'http_proxy', 1, 35, 400, 'http.testinfo', 'test.desc.http', '{"url": "https://nettest.ctu.gov.cz/images/reference01.jpg", "range": "bytes=1000000-1004999", "conn_timeout": "5000000000", "download_timeout": "10000000000"}', '[{"operator": "eq", "on_failure": "http.failure", "on_success": "http.success", "http_result_hash": "fc563e1e80b8cb964d712982fa2143c8"}]');
-INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concurrency_group, test_desc, test_summary, param, results) VALUES (172, 'dns', 1, 35, 610, 'dns.unknowndomain.info', 'test.desc.dns', '{"host": "ipv4test.nettest.ctu.gov.cz", "record": "AAAA", "timeout": "5000000000", "resolver": "8.8.4.4"}', '[{"operator": "eq", "on_failure": "dns.unknowndomain.failure", "on_success": "dns.unknowndomain.success", "dns_result_entries_found": "0"},{"operator": "ne", "on_failure": "test.timeout.exceeded", "dns_result_info": "TIMEOUT"}]');
-INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concurrency_group, test_desc, test_summary, param, results) VALUES (105, 'dns', 1, 35, 620, 'dns.testinfo', 'test.desc.dns', '{"host": "ctu.cz", "record": "A", "timeout": "5000000000", "resolver": "8.8.8.8"}', '[{"operator": "ge", "on_failure": "dns.failure", "on_success": "dns.success", "dns_result_entries_found": "1"},{"operator": "ne", "on_failure": "test.timeout.exceeded", "dns_result_info": "TIMEOUT"}]');
 INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concurrency_group, test_desc, test_summary, param, results) VALUES (98, 'dns', 1, 35, 620, 'dns.testinfo', 'test.desc.dns', '{"host": "gov.cz", "record": "A", "timeout": "5000000000"}', '[{"operator": "ge", "on_failure": "dns.failure", "on_success": "dns.success", "dns_result_entries_found": "1"},{"operator": "ne", "on_failure": "test.timeout.exceeded", "dns_result_info": "TIMEOUT"}]');
 INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concurrency_group, test_desc, test_summary, param, results) VALUES (94, 'dns', 1, 35, 620, 'dns.testinfo', 'test.desc.dns', '{"host": "google.cz", "record": "A", "timeout": "5000000000"}', '[{"operator": "ge", "on_failure": "dns.failure", "on_success": "dns.success", "dns_result_entries_found": "1"},{"operator": "ne", "on_failure": "test.timeout.exceeded", "dns_result_info": "TIMEOUT"}]');
-INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concurrency_group, test_desc, test_summary, param, results) VALUES (173, 'dns', 0, 35, 610, 'dns.unknowndomain.info', 'test.desc.dns', '{"host": "ipv4test.nettest.ctu.gov.cz", "record": "AAAA", "timeout": "5000000000", "resolver": "217.31.204.130"}', '[{"operator": "eq", "on_failure": "dns.unknowndomain.failure", "on_success": "dns.unknowndomain.success", "dns_result_entries_found": "0"},{"operator": "ne", "on_failure": "test.timeout.exceeded", "dns_result_info": "TIMEOUT"}]');
+INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concurrency_group, test_desc, test_summary, param, results) VALUES (173, 'dns', 0, 35, 610, 'dns.unknowndomain.info', 'test.desc.dns', '{"host": "ipv4test.nettest.cz", "record": "AAAA", "timeout": "5000000000", "resolver": "217.31.204.130"}', '[{"operator": "eq", "on_failure": "dns.unknowndomain.failure", "on_success": "dns.unknowndomain.success", "dns_result_entries_found": "0"},{"operator": "ne", "on_failure": "test.timeout.exceeded", "dns_result_info": "TIMEOUT"}]');
 INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concurrency_group, test_desc, test_summary, param, results) VALUES (97, 'dns', 1, 35, 600, 'dns.testinfo', 'test.desc.dns', '{"host": "gov.cz", "record": "AAAA", "timeout": "5000000000"}', '[{"operator": "ge", "on_failure": "dns.failure", "on_success": "dns.success", "dns_result_entries_found": "1"},{"operator": "ne", "on_failure": "test.timeout.exceeded", "dns_result_info": "TIMEOUT"}]');
 INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concurrency_group, test_desc, test_summary, param, results) VALUES (170, 'traceroute_masked', 0, 35, 100, 'trace.testinfo', 'test.desc.trace', '{"host":"ipv4_1-mce0-c009.1.vie001.ix.nflxvideo.net","timeout":"10000000000"}', '[{"operator":"eq","on_failure":"traceroute.failure","on_success":"traceroute.success","traceroute_result_status":"OK"}]');
 INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concurrency_group, test_desc, test_summary, param, results) VALUES (163, 'tcp', 1, 35, 150, 'tcp.in.testinfo', 'test.desc.tcp.in.5061', '{"timeout": "5000000000", "in_port": "5061"}', '[{"operator": "eq", "on_failure": "tcp.failure", "on_success": "tcp.success", "tcp_result_in": "OK"}]');
@@ -3035,11 +3032,11 @@ INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concu
 INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concurrency_group, test_desc, test_summary, param, results) VALUES (39, 'tcp', 1, 35, 200, 'tcp.out.testinfo', 'test.desc.tcp.out.53', '{"timeout": "5000000000", "out_port": "53"}', '[{"operator": "eq", "on_failure": "tcp.failure", "on_success": "tcp.success", "tcp_result_out": "OK"}]');
 INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concurrency_group, test_desc, test_summary, param, results) VALUES (75, 'dns', 1, 35, 600, 'dns.unknowndomain.info', 'test.desc.dns', '{"host": "%RANDOMURL www. 10 .net%", "record": "A", "timeout": "5000000000"}', '[{"operator": "eq", "on_failure": "dns.unknowndomain.failure", "on_success": "dns.unknowndomain.success", "dns_result_entries_found": "0"},{"operator": "ne", "on_failure": "test.timeout.exceeded", "dns_result_info": "TIMEOUT"}]');
 INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concurrency_group, test_desc, test_summary, param, results) VALUES (103, 'dns', 0, 35, 620, 'dns.testinfo', 'test.desc.dns', '{"host": "csob.cz", "record": "A", "timeout": "5000000000"}', '[{"operator": "ge", "on_failure": "dns.failure", "on_success": "dns.success", "dns_result_entries_found": "1"},{"operator": "ne", "on_failure": "test.timeout.exceeded", "dns_result_info": "TIMEOUT"}]');
-INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concurrency_group, test_desc, test_summary, param, results) VALUES (121, 'dns', 1, 35, 630, 'dns.unknowndomain.info', 'test.desc.dns', '{"host": "%RANDOMURL www. 10 .darknet.nettest.ctu.gov.cz%", "record": "A", "timeout": "5000000000", "resolver": "8.8.8.8"}', '[{"operator": "eq", "on_failure": "dns.unknowndomain.failure", "on_success": "dns.unknowndomain.success", "dns_result_entries_found": "0"},{"operator": "ne", "on_failure": "test.timeout.exceeded", "dns_result_info": "TIMEOUT"}]');
-INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concurrency_group, test_desc, test_summary, param, results) VALUES (76, 'dns', 1, 35, 630, 'dns.unknowndomain.info', 'test.desc.dns', '{"host": "%RANDOMURL www. 10 .darknet.nettest.ctu.gov.cz%", "record": "A", "timeout": "5000000000"}', '[{"operator": "eq", "on_failure": "dns.unknowndomain.failure", "on_success": "dns.unknowndomain.success", "dns_result_entries_found": "0"},{"operator": "ne", "on_failure": "test.timeout.exceeded", "dns_result_info": "TIMEOUT"}]');
-INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concurrency_group, test_desc, test_summary, param, results) VALUES (73, 'dns', 1, 35, 600, 'dns.testinfo', 'test.desc.dns', '{"host": "ctu.cz", "record": "A", "timeout": "2000000000"}', '[{"operator": "ge", "on_failure": "dns.failure", "on_success": "dns.success", "dns_result_entries_found": "1"},{"operator": "ne", "on_failure": "test.timeout.exceeded", "dns_result_info": "TIMEOUT"}]');
+INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concurrency_group, test_desc, test_summary, param, results) VALUES (121, 'dns', 1, 35, 630, 'dns.unknowndomain.info', 'test.desc.dns', '{"host": "%RANDOMURL www. 10 .darknet.nettest.cz%", "record": "A", "timeout": "5000000000", "resolver": "8.8.8.8"}', '[{"operator": "eq", "on_failure": "dns.unknowndomain.failure", "on_success": "dns.unknowndomain.success", "dns_result_entries_found": "0"},{"operator": "ne", "on_failure": "test.timeout.exceeded", "dns_result_info": "TIMEOUT"}]');
+INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concurrency_group, test_desc, test_summary, param, results) VALUES (76, 'dns', 1, 35, 630, 'dns.unknowndomain.info', 'test.desc.dns', '{"host": "%RANDOMURL www. 10 .darknet.nettest.cz%", "record": "A", "timeout": "5000000000"}', '[{"operator": "eq", "on_failure": "dns.unknowndomain.failure", "on_success": "dns.unknowndomain.success", "dns_result_entries_found": "0"},{"operator": "ne", "on_failure": "test.timeout.exceeded", "dns_result_info": "TIMEOUT"}]');
 INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concurrency_group, test_desc, test_summary, param, results) VALUES (107, 'dns', 1, 35, 600, 'dns.testinfo', 'test.desc.dns', '{"host": "seznam.cz", "record": "A", "timeout": "5000000000"}', '[{"operator": "ge", "on_failure": "dns.failure", "on_success": "dns.success", "dns_result_entries_found": "1"},{"operator": "ne", "on_failure": "test.timeout.exceeded", "dns_result_info": "TIMEOUT"}]');
 INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concurrency_group, test_desc, test_summary, param, results) VALUES (106, 'dns', 1, 35, 600, 'dns.testinfo', 'test.desc.dns', '{"host": "ctk.cz", "record": "A", "timeout": "5000000000"}', '[{"operator": "ge", "on_failure": "dns.failure", "on_success": "dns.success", "dns_result_entries_found": "1"},{"operator": "ne", "on_failure": "test.timeout.exceeded", "dns_result_info": "TIMEOUT"}]');
+INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concurrency_group, test_desc, test_summary, param, results) VALUES (73, 'dns', 1, 35, 600, 'dns.testinfo', 'test.desc.dns', '{"host": "ctu.gov.cz", "record": "A", "timeout": "2000000000"}', '[{"operator": "ge", "on_failure": "dns.failure", "on_success": "dns.success", "dns_result_entries_found": "1"},{"operator": "ne", "on_failure": "test.timeout.exceeded", "dns_result_info": "TIMEOUT"}]');
 INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concurrency_group, test_desc, test_summary, param, results) VALUES (130, 'traceroute', 0, 35, 10, 'trace.testinfo', 'test.desc.trace', '{"host": "8.8.8.8", "timeout": "35000000000"}', '[{"operator": "eq", "on_failure": "traceroute.failure", "on_success": "traceroute.success", "traceroute_result_status": "OK"}]');
 INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concurrency_group, test_desc, test_summary, param, results) VALUES (41, 'tcp', 1, 35, 200, 'tcp.out.testinfo', 'test.desc.tcp.out.143', '{"timeout": "5000000000", "out_port": "143"}', '[{"operator": "eq", "on_failure": "tcp.failure", "on_success": "tcp.success", "tcp_result_out": "OK"}]');
 INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concurrency_group, test_desc, test_summary, param, results) VALUES (43, 'tcp', 1, 35, 200, 'tcp.out.testinfo', 'test.desc.tcp.out.465', '{"timeout": "5000000000", "out_port": "465"}', '[{"operator": "eq", "on_failure": "tcp.failure", "on_success": "tcp.success", "tcp_result_out": "OK"}]');
@@ -3054,14 +3051,8 @@ INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concu
 INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concurrency_group, test_desc, test_summary, param, results) VALUES (124, 'non_transparent_proxy', 1, 35, 300, 'ntp.testinfo', 'test.desc.ntp', '{"port": "80", "request": "GET / HTTR/7.9", "timeout": "5000000000"}', '[{"operator": "eq", "on_failure": "ntp.failure", "on_success": "ntp.success", "nontransproxy_result_response": "%PARAM nontransproxy_objective_request%"}]');
 INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concurrency_group, test_desc, test_summary, param, results) VALUES (56, 'udp', 1, 35, 200, 'udp.out.testinfo', 'test.desc.udp.out.5005', '{"timeout": "5000000000", "out_port": "5005", "out_num_packets": "5"}', '[{"operator": "eq", "on_failure": "udp.failure", "on_success": "udp.success", "udp_result_out_response_num_packets": "%PARAM udp_objective_out_num_packets%"}]');
 INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concurrency_group, test_desc, test_summary, param, results) VALUES (165, 'udp', 1, 35, 150, 'udp.in.testinfo', 'test.desc.udp.in.5004', '{"timeout": "5000000000", "in_port": "5004", "in_num_packets": "5"}', '[{"operator": "eq", "on_failure": "udp.failure", "on_success": "udp.success", "udp_result_in_response_num_packets": "%PARAM udp_objective_in_num_packets%"}]');
-INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concurrency_group, test_desc, test_summary, param, results) VALUES (166, 'traceroute_masked', 1, 35, 100, 'trace.testinfo', 'test.desc.trace', '{
-    "host": "traceroute.nettest.ctu.gov.cz",
-    "timeout": "35000000000"
-}', '[{"operator": "eq", "on_failure": "traceroute.failure", "on_success": "traceroute.success", "traceroute_result_status": "OK"}]');
-INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concurrency_group, test_desc, test_summary, param, results) VALUES (108, 'dns', 1, 35, 610, 'dns.unknowndomain.info', 'test.desc.dns', '{"host": "touch.darkweb.nettest.ctu.gov.cz", "record": "A", "timeout": "5000000000"}', '[{"operator": "eq", "on_failure": "dns.unknowndomain.failure", "on_success": "dns.unknowndomain.success", "dns_result_entries_found": "0"},{"operator": "ne", "on_failure": "test.timeout.exceeded", "dns_result_info": "TIMEOUT"}]');
-INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concurrency_group, test_desc, test_summary, param, results) VALUES (174, 'dns', 1, 35, 620, 'dns.testinfo', 'test.desc.dns', '{"host": "ctu.cz", "record": "A", "timeout": "5000000000", "resolver": "1.1.1.1"}', '[{"operator": "ge", "on_failure": "dns.failure", "on_success": "dns.success", "dns_result_entries_found": "1"},{"operator": "ne", "on_failure": "test.timeout.exceeded", "dns_result_info": "TIMEOUT"}]');
+INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concurrency_group, test_desc, test_summary, param, results) VALUES (108, 'dns', 1, 35, 610, 'dns.unknowndomain.info', 'test.desc.dns', '{"host": "touch.darkweb.nettest.cz", "record": "A", "timeout": "5000000000"}', '[{"operator": "eq", "on_failure": "dns.unknowndomain.failure", "on_success": "dns.unknowndomain.success", "dns_result_entries_found": "0"},{"operator": "ne", "on_failure": "test.timeout.exceeded", "dns_result_info": "TIMEOUT"}]');
 INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concurrency_group, test_desc, test_summary, param, results) VALUES (79, 'dns', 1, 35, 610, 'dns.testinfo', 'test.desc.dns', '{"host": "cnb.cz", "record": "A", "timeout": "5000000000"}', '[{"operator": "ge", "on_failure": "dns.failure", "on_success": "dns.success", "dns_result_entries_found": "1"},{"operator": "ne", "on_failure": "test.timeout.exceeded", "dns_result_info": "TIMEOUT"}]');
-INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concurrency_group, test_desc, test_summary, param, results) VALUES (72, 'dns', 0, 35, 600, 'dns.testinfo', 'test.desc.dns', '{"host": "ctu.cz", "record": "A", "timeout": "2000000000", "resolver": "8.8.8.8"}', '[{"operator": "ge", "on_failure": "dns.failure", "on_success": "dns.success", "dns_result_entries_found": "1"},{"operator": "ne", "on_failure": "test.timeout.exceeded", "dns_result_info": "TIMEOUT"}]');
 INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concurrency_group, test_desc, test_summary, param, results) VALUES (129, 'voip', 1, 35, 100, 'voip.testinfo', 'test.desc.voip', '{"timeout": "6000000000", "out_port": "5060", "call_duration": "2000000000"}', '[
   {
     "evaluate": "%EVAL if (nn.coalesce(voip_result_out_mean_jitter, 50000000) < 50000000) result=true; else result=false;%",
@@ -3097,6 +3088,7 @@ INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concu
 ]
 ');
 INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concurrency_group, test_desc, test_summary, param, results) VALUES (58, 'udp', 1, 35, 200, 'udp.out.testinfo', 'test.desc.udp.out.7078', '{"timeout": "5000000000", "out_port": "7078", "out_num_packets": "5"}', '[{"operator": "eq", "on_failure": "udp.failure", "on_success": "udp.success", "udp_result_out_response_num_packets": "%PARAM udp_objective_out_num_packets%"}]');
+INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concurrency_group, test_desc, test_summary, param, results) VALUES (72, 'dns', 0, 35, 600, 'dns.testinfo', 'test.desc.dns', '{"host": "ctu.gov.cz", "record": "A", "timeout": "2000000000", "resolver": "8.8.8.8"}', '[{"operator": "ge", "on_failure": "dns.failure", "on_success": "dns.success", "dns_result_entries_found": "1"},{"operator": "ne", "on_failure": "test.timeout.exceeded", "dns_result_info": "TIMEOUT"}]');
 INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concurrency_group, test_desc, test_summary, param, results) VALUES (54, 'udp', 1, 35, 200, 'udp.out.testinfo', 'test.desc.udp.out.500', '{"timeout": "5000000000", "out_port": "500", "out_num_packets": "5"}', '[{"operator": "eq", "on_failure": "udp.failure", "on_success": "udp.success", "udp_result_out_response_num_packets": "%PARAM udp_objective_out_num_packets%"}]');
 INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concurrency_group, test_desc, test_summary, param, results) VALUES (164, 'udp', 1, 35, 150, 'udp.in.testinfo', 'test.desc.udp.in.3389', '{"timeout": "5000000000", "in_port": "3389", "in_num_packets": "5"}', '[{"operator": "eq", "on_failure": "udp.failure", "on_success": "udp.success", "udp_result_in_response_num_packets": "%PARAM udp_objective_in_num_packets%"}]');
 INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concurrency_group, test_desc, test_summary, param, results) VALUES (62, 'udp', 1, 35, 200, 'udp.out.testinfo', 'test.desc.udp.out.554', '{"timeout": "5000000000", "out_port": "554", "out_num_packets": "5"}', '[{"operator": "eq", "on_failure": "udp.failure", "on_success": "udp.success", "udp_result_out_response_num_packets": "%PARAM udp_objective_out_num_packets%"}]');
@@ -3104,12 +3096,9 @@ INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concu
 INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concurrency_group, test_desc, test_summary, param, results) VALUES (61, 'udp', 1, 35, 200, 'udp.out.testinfo', 'test.desc.udp.out.27015', '{"timeout": "5000000000", "out_port": "27015", "out_num_packets": "5"}', '[{"operator": "eq", "on_failure": "udp.failure", "on_success": "udp.success", "udp_result_out_response_num_packets": "%PARAM udp_objective_out_num_packets%"}]');
 INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concurrency_group, test_desc, test_summary, param, results) VALUES (57, 'udp', 1, 35, 200, 'udp.out.testinfo', 'test.desc.udp.out.5060', '{"timeout": "5000000000", "out_port": "5060", "out_num_packets": "5"}', '[{"operator": "eq", "on_failure": "udp.failure", "on_success": "udp.success", "udp_result_out_response_num_packets": "%PARAM udp_objective_out_num_packets%"}]');
 INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concurrency_group, test_desc, test_summary, param, results) VALUES (91, 'dns', 1, 35, 640, 'dns.testinfo', 'test.desc.dns', '{"host": "google.cz", "record": "A", "timeout": "5000000000"}', '[{"operator": "ge", "on_failure": "dns.failure", "on_success": "dns.success", "dns_result_entries_found": "1"},{"operator": "ne", "on_failure": "test.timeout.exceeded", "dns_result_info": "TIMEOUT"}]');
-INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concurrency_group, test_desc, test_summary, param, results) VALUES (27, 'http_proxy', 1, 35, 400, 'http.testinfo', 'test.desc.http', '{"url": "https://nettest.ctu.gov.cz/images/reference05.jpg", "conn_timeout": "5000000000", "download_timeout": "10000000000"}', '[{"operator": "eq", "on_failure": "http.failure", "on_success": "http.success", "http_result_hash": "ae9592475c364fa01909dab663417ab5"}]');
 INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concurrency_group, test_desc, test_summary, param, results) VALUES (100, 'dns', 1, 35, 620, 'dns.testinfo', 'test.desc.dns', '{"host": "cpost.cz", "record": "A", "timeout": "5000000000"}', '[{"operator": "ge", "on_failure": "dns.failure", "on_success": "dns.success", "dns_result_entries_found": "1"},{"operator": "ne", "on_failure": "test.timeout.exceeded", "dns_result_info": "TIMEOUT"}]');
-INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concurrency_group, test_desc, test_summary, param, results) VALUES (175, 'dns', 0, 35, 620, 'dns.testinfo', 'test.desc.dns', '{"host": "ctu.cz", "record": "A", "timeout": "5000000000", "resolver": "9.9.9.9"}', '[{"operator": "ge", "on_failure": "dns.failure", "on_success": "dns.success", "dns_result_entries_found": "1"},{"operator": "ne", "on_failure": "test.timeout.exceeded", "dns_result_info": "TIMEOUT"}]');
 INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concurrency_group, test_desc, test_summary, param, results) VALUES (53, 'udp', 0, 35, 200, 'udp.out.testinfo', 'test.desc.udp.out.123', '{"timeout": "5000000000", "out_port": "123", "out_num_packets": "5"}', '[{"operator": "eq", "on_failure": "udp.failure", "on_success": "udp.success", "udp_result_out_response_num_packets": "%PARAM udp_objective_out_num_packets%"}]');
 INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concurrency_group, test_desc, test_summary, param, results) VALUES (52, 'udp', 1, 35, 200, 'udp.out.testinfo', 'test.desc.udp.out.53', '{"timeout": "5000000000", "out_port": "53", "out_num_packets": "5"}', '[{"operator": "eq", "on_failure": "udp.failure", "on_success": "udp.success", "udp_result_out_response_num_packets": "%PARAM udp_objective_out_num_packets%"}]');
-INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concurrency_group, test_desc, test_summary, param, results) VALUES (16, 'website', 1, 35, 500, 'website.testinfo', 'test.desc.website', '{"url": "https://nettest.ctu.gov.cz/kepler", "timeout": "10000000000"}', '[{"operator": "eq", "on_failure": "website.error", "on_success": "website.200", "website_result_status": "200"}]');
 INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concurrency_group, test_desc, test_summary, param, results) VALUES (167, 'voip', 1, 35, 100, 'voip.testinfo', 'test.desc.voip', '{"timeout": "8000000000", "out_port": "5060", "call_duration": "5000000000"}', '[
   {
     "evaluate": "%EVAL if (nn.coalesce(voip_result_out_mean_jitter, 50000000) < 50000000) result=true; else result=false;%",
@@ -3144,6 +3133,17 @@ INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concu
   }
 ]
 ');
+INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concurrency_group, test_desc, test_summary, param, results) VALUES (104, 'dns', 1, 35, 630, 'dns.testinfo', 'test.desc.dns', '{"host": "ctu.gov.cz", "record": "A", "timeout": "5000000000"}', '[{"operator": "ge", "on_failure": "dns.failure", "on_success": "dns.success", "dns_result_entries_found": "1"},{"operator": "ne", "on_failure": "test.timeout.exceeded", "dns_result_info": "TIMEOUT"}]');
+INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concurrency_group, test_desc, test_summary, param, results) VALUES (105, 'dns', 1, 35, 620, 'dns.testinfo', 'test.desc.dns', '{"host": "ctu.gov.cz", "record": "A", "timeout": "5000000000", "resolver": "8.8.8.8"}', '[{"operator": "ge", "on_failure": "dns.failure", "on_success": "dns.success", "dns_result_entries_found": "1"},{"operator": "ne", "on_failure": "test.timeout.exceeded", "dns_result_info": "TIMEOUT"}]');
+INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concurrency_group, test_desc, test_summary, param, results) VALUES (174, 'dns', 1, 35, 620, 'dns.testinfo', 'test.desc.dns', '{"host": "ctu.gov.cz", "record": "A", "timeout": "5000000000", "resolver": "1.1.1.1"}', '[{"operator": "ge", "on_failure": "dns.failure", "on_success": "dns.success", "dns_result_entries_found": "1"},{"operator": "ne", "on_failure": "test.timeout.exceeded", "dns_result_info": "TIMEOUT"}]');
+INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concurrency_group, test_desc, test_summary, param, results) VALUES (175, 'dns', 0, 35, 620, 'dns.testinfo', 'test.desc.dns', '{"host": "ctu.gov.cz", "record": "A", "timeout": "5000000000", "resolver": "9.9.9.9"}', '[{"operator": "ge", "on_failure": "dns.failure", "on_success": "dns.success", "dns_result_entries_found": "1"},{"operator": "ne", "on_failure": "test.timeout.exceeded", "dns_result_info": "TIMEOUT"}]');
+INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concurrency_group, test_desc, test_summary, param, results) VALUES (172, 'dns', 1, 35, 610, 'dns.unknowndomain.info', 'test.desc.dns', '{"host": "ipv4test.nettest.ctu.gov.cz", "record": "AAAA", "timeout": "5000000000", "resolver": "8.8.4.4"}', '[{"operator": "eq", "on_failure": "dns.unknowndomain.failure", "on_success": "dns.unknowndomain.success", "dns_result_entries_found": "0"},{"operator": "ne", "on_failure": "test.timeout.exceeded", "dns_result_info": "TIMEOUT"}]');
+INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concurrency_group, test_desc, test_summary, param, results) VALUES (27, 'http_proxy', 1, 35, 400, 'http.testinfo', 'test.desc.http', '{"url": "https://nettest.ctu.gov.cz/images/reference05.jpg", "conn_timeout": "5000000000", "download_timeout": "10000000000"}', '[{"operator": "eq", "on_failure": "http.failure", "on_success": "http.success", "http_result_hash": "ae9592475c364fa01909dab663417ab5"}]');
+INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concurrency_group, test_desc, test_summary, param, results) VALUES (16, 'website', 1, 35, 500, 'website.testinfo', 'test.desc.website', '{"url": "https://nettest.ctu.gov.cz/kepler", "timeout": "10000000000"}', '[{"operator": "eq", "on_failure": "website.error", "on_success": "website.200", "website_result_status": "200"}]');
+INSERT INTO public.qos_test_objective (uid, test, test_class, test_server, concurrency_group, test_desc, test_summary, param, results) VALUES (166, 'traceroute_masked', 1, 35, 100, 'trace.testinfo', 'test.desc.trace', '{
+    "host": "nettest.ctu.gov.cz",
+    "timeout": "35000000000"
+}', '[{"operator": "eq", "on_failure": "traceroute.failure", "on_success": "traceroute.success", "traceroute_result_status": "OK"}]');
 
 
 --
@@ -3157,13 +3157,13 @@ SELECT pg_catalog.setval('public.qos_test_objective_uid_seq', 207, true);
 -- PostgreSQL database dump complete
 --
 
--- 2023-08-23_13-22-37 rmbt_init.sql table qoe_classification
+-- 2024-12-02_12-06-32 rmbt_init.sql table qoe_classification
 --
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.23 (Debian 10.23-1.pgdg100+1)
--- Dumped by pg_dump version 10.23 (Debian 10.23-1.pgdg100+1)
+-- Dumped from database version 10.23 (Debian 10.23-6.pgdg110+1)
+-- Dumped by pg_dump version 10.23 (Debian 10.23-6.pgdg110+1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -3196,13 +3196,13 @@ SELECT pg_catalog.setval('public.qoe_classification_uid_seq', 1, false);
 -- PostgreSQL database dump complete
 --
 
--- 2023-08-23_13-22-37 rmbt_init.sql table signal_validation_rules
+-- 2024-12-02_12-06-32 rmbt_init.sql table signal_validation_rules
 --
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.23 (Debian 10.23-1.pgdg100+1)
--- Dumped by pg_dump version 10.23 (Debian 10.23-1.pgdg100+1)
+-- Dumped from database version 10.23 (Debian 10.23-6.pgdg110+1)
+-- Dumped by pg_dump version 10.23 (Debian 10.23-6.pgdg110+1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -3235,7 +3235,17 @@ INSERT INTO public.signal_validation_rules (band, channel_from, channel_to, rsrp
 -- PostgreSQL database dump complete
 --
 
--- 2023-08-23_13-22-37 rmbt_init.sql template table device_map
+-- 2024-12-02_12-06-32 rmbt_init.sql template table device_map
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
 
 INSERT INTO public.device_map(codename,fullname) VALUES
  ('iPad1,1','iPad')
@@ -3362,10 +3372,19 @@ INSERT INTO public.device_map(codename,fullname) VALUES
 ,('iPhone14,8','iPhone 14 Plus')
 ,('iPhone15,2','iPhone 14 Pro')
 ,('iPhone15,3','iPhone 14 Pro Max');
+-- 2024-12-02_12-06-32 rmbt_init.sql template table news
+-- 2024-12-02_12-06-32 rmbt_init.sql template table settings
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
 
--- 2023-08-23_13-22-37 rmbt_init.sql template table news
-
--- 2023-08-23_13-22-37 rmbt_init.sql template table settings
 
 INSERT INTO public.settings (uid, key, lang, value) VALUES (3, 'url_open_data_prefix', NULL, 'https://www.example.at/en/Opentest?');
 INSERT INTO public.settings (uid, key, lang, value) VALUES (7, 'url_open_data_prefix', 'de', 'https://www.example.at/de/Opentest?');
@@ -3388,7 +3407,17 @@ INSERT INTO public.settings (uid, key, lang, value) VALUES (24, 'url_map_server'
 INSERT INTO public.settings (uid, key, lang, value) VALUES (27, 'host_map_server', NULL, 'map.example.at');
 INSERT INTO public.settings (uid, key, lang, value) VALUES (31, 'url_share', NULL, 'https://example.at/share/');
 
--- 2023-08-23_13-22-37 rmbt_init.sql template table test_server
+-- 2024-12-02_12-06-32 rmbt_init.sql template table test_server
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
 
 INSERT INTO public.test_server (name, web_address, port, port_ssl, city, country, geo_lat, geo_long, location, web_address_ipv4, web_address_ipv6, server_type, priority, weight, active, uuid, key, selectable, countries, node) VALUES ('OpenRMBT Server', NULL, NULL, 443, 'Vienna', 'AT', 48.2697550000000035, 16.4109130000000007,'010100002031BF0D00DD5C867A26E03B41B6FC3597AA775741', 'server-v4.example.com', 'server-v6.example.com', 'RMBT', 1, 1, true, 'ccc9107b-3d34-493f-8afc-6af8b6a66b6e', '-change-me', true, '{any}', 'VIE');
 INSERT INTO public.test_server (uid,"name",port_ssl,city,country,geo_lat,geo_long,"location",web_address_ipv4,web_address_ipv6,server_type,priority,weight,active,uuid,"key",selectable,countries,node) VALUES (35,'QOS Server',443,'Vienna','AT',48.2697550000000035,16.4109130000000007,'010100002031BF0D00DD5C867A26E03B41B6FC3597AA775741','qos-v4.example.com','qos-v6.example.com','QoS',0,1,true,'27ba66e8-d6fc-4fca-890a-19e3b4aed6bf','-change-me',true,'{any}','VIE');

@@ -1,10 +1,10 @@
--- 2023-08-23_10-55-41 rmbt.sql
+-- 2024-12-02_12-06-59 rmbt.sql
 --
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.23 (Debian 10.23-1.pgdg100+1)
--- Dumped by pg_dump version 10.23 (Debian 10.23-1.pgdg100+1)
+-- Dumped from database version 10.23 (Debian 10.23-6.pgdg110+1)
+-- Dumped by pg_dump version 10.23 (Debian 10.23-6.pgdg110+1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -4766,6 +4766,44 @@ COMMENT ON COLUMN public.test.server_id IS 'id of test server used';
 
 
 --
+-- Name: test_cert_address; Type: TABLE; Schema: public; Owner: rmbt
+--
+
+CREATE TABLE public.test_cert_address (
+    uid integer NOT NULL,
+    loop_uuid uuid NOT NULL,
+    address character varying(100) NOT NULL,
+    am_code integer NOT NULL,
+    x_wgs numeric(10,8) NOT NULL,
+    y_wgs numeric(10,8) NOT NULL
+);
+
+
+ALTER TABLE public.test_cert_address OWNER TO rmbt;
+
+--
+-- Name: test_cert_address_uid_seq; Type: SEQUENCE; Schema: public; Owner: rmbt
+--
+
+CREATE SEQUENCE public.test_cert_address_uid_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.test_cert_address_uid_seq OWNER TO rmbt;
+
+--
+-- Name: test_cert_address_uid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: rmbt
+--
+
+ALTER SEQUENCE public.test_cert_address_uid_seq OWNED BY public.test_cert_address.uid;
+
+
+--
 -- Name: test_location; Type: TABLE; Schema: public; Owner: rmbt
 --
 
@@ -5793,6 +5831,13 @@ ALTER TABLE ONLY public.test ALTER COLUMN uid SET DEFAULT nextval('public.test_u
 
 
 --
+-- Name: test_cert_address uid; Type: DEFAULT; Schema: public; Owner: rmbt
+--
+
+ALTER TABLE ONLY public.test_cert_address ALTER COLUMN uid SET DEFAULT nextval('public.test_cert_address_uid_seq'::regclass);
+
+
+--
 -- Name: test_location uid; Type: DEFAULT; Schema: public; Owner: rmbt
 --
 
@@ -6194,6 +6239,22 @@ ALTER TABLE ONLY public.status
 
 ALTER TABLE ONLY public.sync_group
     ADD CONSTRAINT sync_group_pkey PRIMARY KEY (uid);
+
+
+--
+-- Name: test_cert_address test_cert_address_pk; Type: CONSTRAINT; Schema: public; Owner: rmbt
+--
+
+ALTER TABLE ONLY public.test_cert_address
+    ADD CONSTRAINT test_cert_address_pk PRIMARY KEY (uid);
+
+
+--
+-- Name: test_cert_address test_cert_address_unique; Type: CONSTRAINT; Schema: public; Owner: rmbt
+--
+
+ALTER TABLE ONLY public.test_cert_address
+    ADD CONSTRAINT test_cert_address_unique UNIQUE (loop_uuid);
 
 
 --
@@ -7586,6 +7647,21 @@ GRANT USAGE ON SEQUENCE public.sync_group_uid_seq TO rmbt_group_control;
 
 GRANT SELECT ON TABLE public.test TO rmbt_group_read_only;
 GRANT INSERT,UPDATE ON TABLE public.test TO rmbt_group_control;
+
+
+--
+-- Name: TABLE test_cert_address; Type: ACL; Schema: public; Owner: rmbt
+--
+
+GRANT INSERT,UPDATE ON TABLE public.test_cert_address TO rmbt_group_control;
+GRANT SELECT ON TABLE public.test_cert_address TO rmbt_group_read_only;
+
+
+--
+-- Name: SEQUENCE test_cert_address_uid_seq; Type: ACL; Schema: public; Owner: rmbt
+--
+
+GRANT USAGE ON SEQUENCE public.test_cert_address_uid_seq TO rmbt_control;
 
 
 --
